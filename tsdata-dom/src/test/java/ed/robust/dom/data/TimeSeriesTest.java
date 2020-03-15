@@ -1131,7 +1131,7 @@ public class TimeSeriesTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = new Double(3);
+        Object obj = Double.valueOf(3);
         TimeSeries instance = new TimeSeries();
         boolean expResult = false;
         boolean result = instance.equals(obj);
@@ -1436,6 +1436,28 @@ public class TimeSeriesTest {
                 
        
     }
+    
+    /*@Test
+    public void canSerializeToJSONAndBack() throws Exception {
+
+        TimeSeries instance = new TimeSeries();
+        
+        instance.add(new Timepoint(0,1));
+        instance.add(new Timepoint(2,1));
+        instance.add(new Timepoint(10,2,1.0,null));
+        instance.add(new Timepoint(5,3,0.5,0.1));
+        
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        String txt = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
+        
+        System.out.println(txt);
+        assertNotNull(txt);
+        
+        TimeSeries cpy = mapper.readValue(txt, TimeSeries.class);
+        assertTrue(instance.equals(cpy));
+        
+    }*/
     
     
 }

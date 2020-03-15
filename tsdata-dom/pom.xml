@@ -15,6 +15,14 @@
     <description>Timeseries and their processing</description>
     
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>            
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -32,50 +40,43 @@
         </plugins>    
     </build>
 	
+        
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ed.biodare.data</groupId>
+                <artifactId>data-dep-bom</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+        
     <dependencies>
         
         <!-- for jaxb annotations --> 
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version> 
         </dependency> 
         
                 
         <!-- testing -->                        
+        
         <!-- for jaxb saving --> 
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.2</version>
             <scope>test</scope>
         </dependency>               
-        
         
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 	
-	
-    <distributionManagement>
-        <repository>
-          <uniqueVersion>false</uniqueVersion>
-          <id>biodare-rel</id>
-          <name>BioDare releases</name>
-          <url>http://pumpkin.bio.ed.ac.uk:8881/nexus/content/repositories/biodare-rel</url>
-          <layout>default</layout>
-        </repository>
-        <snapshotRepository>
-          <uniqueVersion>true</uniqueVersion>
-          <id>biodare-dev</id>
-          <name>BioDare Snapshots</name>
-          <url>http://pumpkin.bio.ed.ac.uk:8881/nexus/content/repositories/biodare-dev</url>
-          <layout>default</layout>
-        </snapshotRepository>
-    </distributionManagement>    
-    
+
 </project>
