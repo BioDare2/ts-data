@@ -11,7 +11,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-    <name>TSData Dom</name>
+    <name>BD2Data TS Dom</name>
     <description>Timeseries and their processing</description>
     
     <build>

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ed.biodare.data</groupId>
-    <artifactId>data-bom</artifactId>
+    <artifactId>aggregator</artifactId>
     <version>1.6.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
@@ -11,24 +11,22 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-    <name>BD2Data BOM</name>
-    <description>BOM for BioDare data</description>
+    <name>BD2Data</name>
+    <description>Aggregator for building BioDare data</description>
     
     <dependencyManagement>
-        <dependencies>
-		
-
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>tsdata-dom</artifactId>
-            <version>1.6-SNAPSHOT</version> 
-        </dependency> 
-				
-		</dependencies>
     </dependencyManagement>
 	
     <dependencies>
     </dependencies>
+	
+	<modules>
+		<module>data-dep-bom</module>
+		<module>tsdata-dom</module>
+		<module>data-bom</module>
+		<module>data-json</module>
+		<module>data-util-bom</module>
+	</modules>	
 	
 	<build>
 		<pluginManagement>

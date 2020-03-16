@@ -11,7 +11,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-    <name>TSData JSON</name>
+    <name>BD2Data JSON</name>
     <description>JSON modules for data serialization</description>
     
 
