@@ -23,6 +23,12 @@
             <artifactId>tsdata-dom</artifactId>
             <version>1.6-SNAPSHOT</version> 
         </dependency> 
+		
+        <dependency>
+            <groupId>ed.biodare.data</groupId>
+            <artifactId>error</artifactId>
+            <version>1.6-SNAPSHOT</version> 
+        </dependency>		
 				
 		</dependencies>
     </dependencyManagement>

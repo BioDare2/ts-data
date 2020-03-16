@@ -23,7 +23,9 @@
 	<modules>
 		<module>data-dep-bom</module>
 		<module>tsdata-dom</module>
+		<module>error</module>
 		<module>data-bom</module>
+		<module>data-util</module>
 		<module>data-json</module>
 		<module>data-util-bom</module>
 	</modules>	
