@@ -333,6 +333,49 @@ public class TimeSeriesFileHandler {
         }
         
     }
+
+    public static List<TimeSeries> readFromText(InputStream stream, String columnSeparator,int skipLines) throws RobustFormatException, IOException {
+        
+        if (skipLines < 0) throw new IllegalArgumentException("Lines to skip must be >=0");
+        
+        
+        try (BufferedReader input = new BufferedReader(new InputStreamReader(stream))) {
+            String line;
+            for (int i = 0;i<skipLines;i++) input.readLine();
+            
+            String separator = escapeSeparator(columnSeparator);
+            //System.out.println("Separator: "+separator);
+            List<TimeSeries> series = new ArrayList<>();
+
+            while ((line = input.readLine())!= null) {
+
+                String tokens[] = line.split(separator);
+                if (tokens.length < 1) throw new RobustFormatException("Row has to contains at least time column");
+
+                while (series.size() < (tokens.length)) series.add(new TimeSeries());
+
+                String s ="";
+                int col = 0;
+                try {
+                    s = tokens[col];
+                    double time = Double.parseDouble(s);
+
+                    for (col=1;col<tokens.length;col++) {
+                        s = tokens[col];
+                        if (s == null || s.trim().isEmpty()) continue;
+                        double val = Double.parseDouble(s);
+                        series.get(col).add(time, val);
+                    }
+                } catch (NumberFormatException e) {
+                    throw new RobustFormatException("Expected number but found: "+s+", in col:"+col+", row: "+line);
+                }
+
+            }
+
+            return series.subList(1, series.size());
+        } 
+        
+    }
     
     /**
      * Reads one line from text files and converts it into list of labels using columnSeparator to split the labels with.
