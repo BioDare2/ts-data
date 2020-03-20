@@ -28,8 +28,17 @@
             <artifactId>data-util</artifactId>
             <version>1.6-SNAPSHOT</version> 
         </dependency> 		
+        
+        <!-- ExcelTools are in a separate repo 
+            https://github.com/tzielins/BioDare2-ExcelTools    
+        -->
+        <dependency>
+            <groupId>ed.biodare.data</groupId>
+            <artifactId>excel-tools</artifactId>
+            <version>1.6-SNAPSHOT</version> 
+        </dependency>         
 		
-		</dependencies>
+        </dependencies>
     </dependencyManagement>
 	
     <dependencies>
