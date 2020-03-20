@@ -37,7 +37,16 @@
             <artifactId>excel-tools</artifactId>
             <version>1.6-SNAPSHOT</version> 
         </dependency>         
-		
+
+        <!-- Topcount is in a separate repo 
+            https://github.com/tzielins/BioDare2-topcount
+        -->
+        <dependency>
+            <groupId>ed.biodare.data</groupId>
+            <artifactId>topcount</artifactId>
+            <version>1.6-SNAPSHOT</version> 
+        </dependency> 
+                        		
         </dependencies>
     </dependencyManagement>
 	
