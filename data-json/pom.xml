@@ -19,6 +19,13 @@
         
     <dependencyManagement>
         <dependencies>
+			<dependency>
+				<groupId>ed.biodare.data</groupId>
+				<artifactId>data-bom</artifactId>
+				<version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+			</dependency>		
         </dependencies>
     </dependencyManagement>
         
@@ -28,7 +35,6 @@
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>tsdata-dom</artifactId>
-			<version>${revision}</version>
         </dependency>
                 
         <!-- for json saving -->         

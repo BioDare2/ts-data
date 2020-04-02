@@ -17,6 +17,12 @@
     <name>BD2Data</name>
     <description>Parent and aggregator for building BioDare data</description>
     
+	<scm>
+	   <connection>scm:git:git@github.com:tzielins/BioDare2-data.git</connection>
+	   <url>scm:git:git@github.com:tzielins/BioDare2-data.git</url>
+	   <developerConnection>scm:git:git@github.com:tzielins/BioDare2-data.git</developerConnection>
+	</scm>
+	
     <dependencyManagement>
 		<dependencies>
         <dependency>
@@ -63,18 +69,11 @@
     </dependencies>
 	
 	<modules>
+		<module>data-bom</module>
 		<module>tsdata-dom</module>
 		<module>error</module>
 		<module>data-util</module>
 		<module>data-json</module>
-		<module>data-bom</module>
-		<!--<module>data-dep-bom</module>
-		
-		
-		
-		
-		
-		<module>data-util-bom</module>-->
 	</modules>	
 	
 	<build>
