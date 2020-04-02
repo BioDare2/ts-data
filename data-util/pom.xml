@@ -4,7 +4,7 @@
     <parent>
         <groupId>ed.biodare.data</groupId>
         <artifactId>data-parent</artifactId>
-        <version>${revision}</version>
+        <version>1.6.0-SNAPSHOT</version>
     </parent>	
     <artifactId>data-util</artifactId>
     <!--<version>1.6-SNAPSHOT</version>-->
