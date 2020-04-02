@@ -21,25 +21,25 @@
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>tsdata-dom</artifactId>
-            <version>${revision}</version> 
+            <version>${project.version}</version> 
         </dependency> 
 		
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>error</artifactId>
-            <version>${revision}</version> 
+            <version>${project.version}</version> 
         </dependency>
 
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>data-json</artifactId>
-            <version>${revision}</version> 
+            <version>${project.version}</version> 
         </dependency> 
 		
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>data-util</artifactId>
-            <version>${revision}</version> 
+            <version>${project.version}</version> 
         </dependency>
 
         <!-- ExcelTools are in a separate repo 
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>excel-tools</artifactId>
-            <version>${revision}</version> 
+            <version>${project.version}</version> 
         </dependency>         
 
         <!-- Topcount is in a separate repo 
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>topcount</artifactId>
-            <version>${revision}</version> 
+            <version>${project.version}</version> 
         </dependency> 		
 				
 		</dependencies>
