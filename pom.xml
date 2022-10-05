@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <properties>
 		<!--<revision>1.6.0-SNAPSHOT</revision>-->
-		<jackson.version>2.10.3</jackson.version>
+		<jackson.version>2.12.6.1</jackson.version>
 		<math.version>3.6.1</math.version>	
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
