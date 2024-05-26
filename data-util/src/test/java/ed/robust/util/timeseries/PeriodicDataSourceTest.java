@@ -145,7 +145,7 @@ public class PeriodicDataSourceTest {
         TimeSeries result = new TimeSeries(instance.getTimepoints(1, ROUNDING_TYPE.DECY));
 
         List<TimeSeries> list = Arrays.asList(expResult,result);
-        TimeSeriesFileHandler.saveToText(list, new File("E:/Temp/perds.csv"), ",");
+        TimeSeriesFileHandler.saveToText(list, Configuration.tempFile("perds.csv"), ",");
         
         double EPS = 0.1;
         assertTrue(expResult.almostEquals(result, EPS));

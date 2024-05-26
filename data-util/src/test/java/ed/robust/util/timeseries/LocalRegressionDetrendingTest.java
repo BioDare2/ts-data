@@ -430,7 +430,7 @@ public class LocalRegressionDetrendingTest {
             results.add(ampT);
             
         }
-        TimeSeriesFileHandler.saveToText(results, new File("E:/Temp/smart_detrend4.csv"), ",");
+        TimeSeriesFileHandler.saveToText(results, Configuration.tempFile("smart_detrend4.csv"), ",");
     }
     
     
@@ -455,7 +455,7 @@ public class LocalRegressionDetrendingTest {
             results.add(data);
             results.add(detrended);
         }
-        TimeSeriesFileHandler.saveToText(results, new File("E:/Temp/trends.csv"), ",");
+        TimeSeriesFileHandler.saveToText(results, Configuration.tempFile("trends.csv"), ",");
         
     }
 
@@ -478,7 +478,7 @@ public class LocalRegressionDetrendingTest {
             results.add(data);
             results.add(detrended);
         }
-        TimeSeriesFileHandler.saveToText(results, new File("E:/Temp/trends_amp2.csv"), ",");
+        TimeSeriesFileHandler.saveToText(results, Configuration.tempFile("trends_amp2.csv"), ",");
     }
     
     @Test
@@ -507,7 +507,7 @@ public class LocalRegressionDetrendingTest {
             trended.add(tr);
             all.add(tr);
         }
-        TimeSeriesFileHandler.saveToText(all, new File("E:/Temp/back_trends.csv"), ",");
+        TimeSeriesFileHandler.saveToText(all, Configuration.tempFile("back_trends.csv"), ",");
         
         for (int i = 0;i<testData.size();i++) {
             TimeSeries data = testData.get(i);

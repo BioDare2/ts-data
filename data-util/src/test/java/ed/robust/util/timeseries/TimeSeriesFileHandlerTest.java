@@ -45,7 +45,7 @@ public class TimeSeriesFileHandlerTest {
         data.add(2,2);
         
         
-        File cF = new File("E:/Temp/me.csv");
+        File cF = Configuration.tempFile("me.csv");
         //assertTrue("cF file: "+cF.getAbsolutePath(),false);
         
         TimeSeriesFileHandler.saveToText(data, cF, ",");

@@ -62,7 +62,7 @@ public class LocalRegressionDetrendingBugTest {
         
         orgs.addAll(dmp);
         
-        File file = new File("E:/Temp/AMB_BASE.DTR.csv");
+        File file = Configuration.tempFile("AMB_BASE.DTR.csv");
         //TimeSeriesFileHandler.saveToText(orgs, file, ",");
         
     }
@@ -153,7 +153,7 @@ public class LocalRegressionDetrendingBugTest {
             //res.add(dtr);
         }
         
-        File out = new File("E:/Temp/diff.dtr.debug.csv");
+        File out = Configuration.tempFile("diff.dtr.debug.csv");
         //TimeSeriesFileHandler.saveToText(res, out, ",");
         
         //fail("As expected");
@@ -189,7 +189,7 @@ public class LocalRegressionDetrendingBugTest {
             res.add(dtr);
         }
         
-        File out = new File("E:/Temp/diff.dtr.case.res.csv");
+        File out = Configuration.tempFile("diff.dtr.case.res.csv");
         //TimeSeriesFileHandler.saveToText(res, out, ",");
         
         //fail("As expected");
@@ -210,7 +210,7 @@ public class LocalRegressionDetrendingBugTest {
             res.add(LocalRegressionDetrending.removeTrend(ser, pack));
         }
         
-        File file = new File("E:/Temp/AMB_BASE.DTR.res2.csv");
+        File file = Configuration.tempFile("AMB_BASE.DTR.res2.csv");
         TimeSeriesFileHandler.saveToText(res, file, ",");
         
     }

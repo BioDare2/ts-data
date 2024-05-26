@@ -61,7 +61,7 @@ public class SplineTSInterpolatorTest {
         list.add(data);
         list.add(rTS);
         
-        TimeSeriesFileHandler.saveToText(list, new File("E:/Temp/inter.csv"), ",");
+        TimeSeriesFileHandler.saveToText(list, Configuration.tempFile("inter.csv"), ",");
         
     }
 

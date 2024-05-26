@@ -52,7 +52,7 @@ public class TimeSeriesOverlapperTest {
         
         List<TimeSeries> list = Arrays.asList(data,wrapped);
         
-        TimeSeriesFileHandler.saveToText(list, new File("E:/Temp/p_ovgwave.csv"), ",");
+        TimeSeriesFileHandler.saveToText(list, Configuration.tempFile("p_ovgwave.csv"), ",");
         
     }
     
@@ -74,7 +74,7 @@ public class TimeSeriesOverlapperTest {
         
         List<TimeSeries> list = Arrays.asList(data,fit);
         
-        TimeSeriesFileHandler.saveToText(list, new File("E:/Temp/p_avgfit.csv"), ",");
+        TimeSeriesFileHandler.saveToText(list, Configuration.tempFile("p_avgfit.csv"), ",");
         
         List<Timepoint> points = fit.getTimepoints();
         int jump = (int)(period/step);
