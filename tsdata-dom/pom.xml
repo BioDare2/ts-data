@@ -4,10 +4,9 @@
     <parent>
         <groupId>ed.biodare.data</groupId>
         <artifactId>data-parent</artifactId>
-        <version>1.7.0-SNAPSHOT</version>
+        <version>2.0.0-SNAPSHOT</version>
     </parent>	
     <artifactId>tsdata-dom</artifactId>
-    <!--<version>1.6-SNAPSHOT</version>-->
     <packaging>jar</packaging>
     <properties>
     </properties>
