@@ -41,9 +41,6 @@
             <version>${project.version}</version> 
         </dependency>
 
-        <!-- ExcelTools are in a separate repo 
-            https://github.com/tzielins/BioDare2-ExcelTools    
-        -->
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>excel-tools</artifactId>

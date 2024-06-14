@@ -8,7 +8,8 @@
     <properties>
 		<!--<revision>1.6.0-SNAPSHOT</revision>-->
 		<jackson.version>2.15.4</jackson.version>
-		<math.version>3.6.1</math.version>	
+		<math.version>3.6.1</math.version>
+                <poi.version>4.1.2</poi.version>	
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -55,7 +56,24 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
-        </dependency>        
+        </dependency>   
+        
+        <!-- poi dependences for reading excel -->
+        <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+        </dependency>                
+        <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml-schemas</artifactId>
+                <version>${poi.version}</version>
+        </dependency>                   
         
         <dependency>
             <groupId>junit</groupId>
@@ -75,6 +93,7 @@
 		<module>error</module>
 		<module>data-util</module>
 		<module>data-json</module>
+                <module>data-excel</module>
 	</modules>	
 	
 	<build>
