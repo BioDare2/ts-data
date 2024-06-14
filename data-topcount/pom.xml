@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
     <properties>
     </properties>
-    <name>BioDare2 TopCount</name>
+    <name>BD2Data TopCount</name>
     <description>Reading data from TopCount format</description>
     
     <dependencyManagement>
