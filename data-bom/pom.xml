@@ -47,9 +47,6 @@
             <version>${project.version}</version> 
         </dependency>         
 
-        <!-- Topcount is in a separate repo 
-            https://github.com/tzielins/BioDare2-topcount
-        -->
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>topcount</artifactId>

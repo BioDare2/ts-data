@@ -94,6 +94,7 @@
 		<module>data-util</module>
 		<module>data-json</module>
                 <module>data-excel</module>
+                <module>data-topcount</module>
 	</modules>	
 	
 	<build>
