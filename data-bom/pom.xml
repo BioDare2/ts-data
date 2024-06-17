@@ -15,8 +15,26 @@
     
     <dependencyManagement>
         <dependencies>
-		
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>${math.version}</version>
+        </dependency>            		
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        
+        <!-- that is not used in this project but to keep the same versions -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+                
         <dependency>
             <groupId>ed.biodare.data</groupId>
             <artifactId>tsdata-dom</artifactId>
