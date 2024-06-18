@@ -15,7 +15,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
-    <name>BD2Data</name>
+    <name>BD2Data Parent</name>
     <description>Parent and aggregator for building BioDare data</description>
     
 	<scm>
@@ -102,7 +102,7 @@
 			<plugins>
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.8.2</version>
+					<version>3.1.2</version>
 				</plugin>
 				
 				<plugin>
