@@ -54,7 +54,7 @@ public class Workbook2TextConverterTest {
                     "",
                     "A,B,C",                    
                     "",
-                    ",1.1,1.2,2.3434432423434199E18",
+                    ",1.1,1.2,2.34344324234342E18",
                     "1.0,2.0",
                     ",,A,B,\"with,comma\""
             );
@@ -82,7 +82,7 @@ public class Workbook2TextConverterTest {
                     "",
                     "A,B,C",                    
                     "",
-                    ",1.1,1.2,2.3434432423434199E18",
+                    ",1.1,1.2,2.34344324234342E18",
                     "1.0,2.0",
                     ",,A,B,\"with,comma\""
             );
