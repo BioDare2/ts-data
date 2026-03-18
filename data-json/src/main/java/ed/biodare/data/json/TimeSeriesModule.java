@@ -5,7 +5,7 @@
  */
 package ed.biodare.data.json;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.module.SimpleModule;
 import ed.robust.dom.data.TimeSeries;
 
 /**
@@ -19,7 +19,7 @@ public class TimeSeriesModule extends SimpleModule {
     public TimeSeriesModule()
     {
         //super(PackageVersion.VERSION); 
-        addDeserializer(TimeSeries.class, new TimeSeriesDeSerializer());        
+        addDeserializer(TimeSeries.class, new TimeSeriesDeSerializer());
         addSerializer(TimeSeries.class, new TimeSeriesSerializer());
     }
     

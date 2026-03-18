@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>ed.biodare.data</groupId>
-        <artifactId>data-parent</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>data-bom</artifactId>
-    <packaging>pom</packaging>
-    <properties>
-    </properties>
-    <name>BD2Data BOM</name>
-    <description>BOM for BioDare data</description>
-    
-    <dependencyManagement>
-        <dependencies>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>${math.version}</version>
-        </dependency>            		
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        
-        <!-- that is not used in this project but to keep the same versions -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-                
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>tsdata-dom</artifactId>
-            <version>${project.version}</version> 
-        </dependency> 
-		
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>error</artifactId>
-            <version>${project.version}</version> 
-        </dependency>
-
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>data-json</artifactId>
-            <version>${project.version}</version> 
-        </dependency> 
-		
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>data-util</artifactId>
-            <version>${project.version}</version> 
-        </dependency>
-
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>excel-tools</artifactId>
-            <version>${project.version}</version> 
-        </dependency>         
-
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>topcount</artifactId>
-            <version>${project.version}</version> 
-        </dependency> 		
-				
-		</dependencies>
-    </dependencyManagement>
-	
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>ed.biodare.data</groupId>
+    <artifactId>data-parent</artifactId>
+    <version>2.1.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>data-bom</artifactId>
+  <packaging>pom</packaging>
+  <properties>
+  </properties>
+  <name>BD2Data BOM</name>
+  <description>BOM for BioDare data</description>
+  
+  <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-math3</artifactId>
+        <version>${math.version}</version>
+      </dependency>            		
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      
+      <!-- that is not used in this project but to keep the same versions -->
+      <!-- <dependency> -->
+      <!--   <groupId>com.fasterxml.jackson.core</groupId> -->
+      <!--   <artifactId>jackson-annotations</artifactId> -->
+      <!--   <!-\- <version>${jackson.version}</version> -\-> -->
+      <!-- </dependency> -->
+      
+      <dependency>
+        <groupId>ed.biodare.data</groupId>
+        <artifactId>tsdata-dom</artifactId>
+        <version>${project.version}</version> 
+      </dependency> 
+      
+      <dependency>
+        <groupId>ed.biodare.data</groupId>
+        <artifactId>error</artifactId>
+        <version>${project.version}</version> 
+      </dependency>
+
+      <dependency>
+        <groupId>ed.biodare.data</groupId>
+        <artifactId>data-json</artifactId>
+        <version>${project.version}</version> 
+      </dependency> 
+      
+      <dependency>
+        <groupId>ed.biodare.data</groupId>
+        <artifactId>data-util</artifactId>
+        <version>${project.version}</version> 
+      </dependency>
+
+      <dependency>
+        <groupId>ed.biodare.data</groupId>
+        <artifactId>excel-tools</artifactId>
+        <version>${project.version}</version> 
+      </dependency>         
+
+      <dependency>
+        <groupId>ed.biodare.data</groupId>
+        <artifactId>topcount</artifactId>
+        <version>${project.version}</version> 
+      </dependency> 		
+      
     </dependencies>
-	
-	<build>
-		<pluginManagement>
-			<plugins>
-			</plugins>
-		</pluginManagement>
-	</build>	
-    
-    
+  </dependencyManagement>
+  
+  <dependencies>
+  </dependencies>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+      </plugins>
+    </pluginManagement>
+  </build>	
+  
+  
 </project>

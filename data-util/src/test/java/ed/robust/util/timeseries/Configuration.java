@@ -14,7 +14,7 @@ import java.nio.file.Paths;
  */
 public class Configuration {
     
-    public static Path tempDir = Paths.get("C:/Temp");
+    public static Path tempDir = Paths.get("/home/dthedie/Temp");
     
     public static File tempFile(String name) {
         

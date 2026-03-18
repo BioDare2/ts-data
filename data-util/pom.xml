@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>ed.biodare.data</groupId>
-        <artifactId>data-parent</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
-    </parent>	
-    <artifactId>data-util</artifactId>
-    <!--<version>1.6-SNAPSHOT</version>-->
-    <packaging>jar</packaging>
-    <properties>
-    </properties>
-    <name>BD2Data Util</name>
-    <description>Util classes for ts operations</description>
-    
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>ed.biodare.data</groupId>
+    <artifactId>data-parent</artifactId>
+    <version>2.1.1-SNAPSHOT</version>
+  </parent>	
+  <artifactId>data-util</artifactId>
+  <!--<version>1.6-SNAPSHOT</version>-->
+  <packaging>jar</packaging>
+  <properties>
+  </properties>
+  <name>BD2Data Util</name>
+  <description>Util classes for ts operations</description>
+  
 
-	
-        
-    <dependencyManagement>
-        <dependencies>
-			<dependency>
-				<groupId>ed.biodare.data</groupId>
-				<artifactId>data-bom</artifactId>
-				<version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-			</dependency>
-		</dependencies>
-    </dependencyManagement>
-        
+  
+  
+  <dependencyManagement>
     <dependencies>
-        
-        
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>tsdata-dom</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>ed.biodare.data</groupId>
-            <artifactId>error</artifactId>
-        </dependency>
-                                                        
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-        </dependency>						
-		
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
+      <dependency>
+	<groupId>ed.biodare.data</groupId>
+	<artifactId>data-bom</artifactId>
+	<version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
-	
-    <build>
-        <pluginManagement>
-            <plugins>
-            </plugins>
-        </pluginManagement>
-        <plugins>            
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-source-plugin</artifactId>
-              <executions>
-                <execution>
-                  <id>attach-sources</id>
-                  <goals>
-                    <goal>jar</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-        </plugins>    
-    </build>
+  </dependencyManagement>
+  
+  <dependencies>
     
     
+    <dependency>
+      <groupId>ed.biodare.data</groupId>
+      <artifactId>tsdata-dom</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>ed.biodare.data</groupId>
+      <artifactId>error</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+    </dependency>						
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+      </plugins>
+    </pluginManagement>
+    <plugins>            
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>    
+  </build>
+  
+  
 </project>

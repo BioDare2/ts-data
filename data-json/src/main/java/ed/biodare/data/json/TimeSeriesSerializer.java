@@ -5,9 +5,10 @@
  */
 package ed.biodare.data.json;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ser.std.StdSerializer;
 import ed.robust.dom.data.TimeSeries;
 import ed.robust.dom.data.Timepoint;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class TimeSeriesSerializer extends StdSerializer<TimeSeries> {
     }
     
     @Override
-    public void serialize(TimeSeries data, JsonGenerator jgen, SerializerProvider sp) throws IOException {
+    public void serialize(TimeSeries data, JsonGenerator jgen, SerializationContext sc) throws JacksonException {
         
         jgen.writeStartObject();
         
@@ -59,18 +60,18 @@ public class TimeSeriesSerializer extends StdSerializer<TimeSeries> {
             }
         }
 
-        jgen.writeFieldName("times");
+        jgen.writeName("times");
         jgen.writeArray(times, 0, times.length);
 
-        jgen.writeFieldName("values");
+        jgen.writeName("values");
         jgen.writeArray(values, 0, values.length);
 
         if (hasStdErrs) {
-            jgen.writeFieldName("stderrs");
+            jgen.writeName("stderrs");
             jgen.writeArray(stdErrs, 0, stdErrs.length);            
         }
         if (hasStdDevs) {
-            jgen.writeFieldName("stddevs");
+            jgen.writeName("stddevs");
             jgen.writeArray(stdDevs, 0, times.length);            
         }
         jgen.writeEndObject();        

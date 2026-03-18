@@ -5,14 +5,15 @@
  */
 package ed.biodare.data.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.util.DefaultIndenter;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.util.DefaultIndenter;
+import tools.jackson.core.util.DefaultPrettyPrinter;
+import tools.jackson.core.util.Separators;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.SerializationFeature;
 import ed.robust.dom.data.TimeSeries;
 import ed.robust.dom.data.Timepoint;
-import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,17 +37,21 @@ public class TimeSeriesModuleTest {
     }
 
     @Test
-    public void serializedTS() throws JsonProcessingException, IOException {
+    public void serializedTS() throws JacksonException {
         
-        ObjectMapper mapper = new ObjectMapper();
-        DefaultPrettyPrinter  pp = (new DefaultPrettyPrinter())
-                .withoutSpacesInObjectEntries()
-                .withArrayIndenter(new DefaultPrettyPrinter.NopIndenter())
-                .withObjectIndenter(new DefaultIndenter(" ", "\n"));
-        mapper.setDefaultPrettyPrinter(pp);
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        mapper.registerModule(new TimeSeriesModule());
+	ObjectMapper mapper = JsonMapper.builder()
+	    .addModule(new TimeSeriesModule())
+	    .defaultPrettyPrinter(
+				  new DefaultPrettyPrinter()
+				  .withSeparators(
+						  Separators.createDefaultInstance()
+						  .withObjectEntrySeparator(',')
+						  )
+				  .withArrayIndenter(DefaultPrettyPrinter.NopIndenter.instance())
+				  .withObjectIndenter(new DefaultIndenter(" ", "\n"))
+				  )
+	    .enable(SerializationFeature.INDENT_OUTPUT)
+	    .build();
 
         TimeSeries data = new TimeSeries();
         data.add(1,2);
@@ -55,7 +60,6 @@ public class TimeSeriesModuleTest {
         data.add(new Timepoint(5,7,0.2, Timepoint.STD_DEV));
         
         String json = mapper.writeValueAsString(data);
-        //System.out.println(json); 
         
         assertNotNull(json);
         
