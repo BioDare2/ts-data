@@ -47,8 +47,8 @@ public class Timepoint implements Comparable<Timepoint>, Serializable {
 
     public Timepoint(double time, double value) {
 	this();
-        if (Double.isInfinite(time) || Double.isNaN(time)) throw new IllegalArgumentException("time cannot be infinitive nor Nan: "+time);
-        if (Double.isInfinite(value) || Double.isNaN(value)) throw new IllegalArgumentException("value cannot be infinitive nor Nan: "+value);
+        if (Double.isInfinite(time) || Double.isNaN(time)) throw new IllegalArgumentException("time cannot be infinite nor Nan: "+time);
+        if (Double.isInfinite(value) || Double.isNaN(value)) throw new IllegalArgumentException("value cannot be infinite nor Nan: "+value);
 	this.time = time;
 	this.value = value;
     }
@@ -144,8 +144,8 @@ public class Timepoint implements Comparable<Timepoint>, Serializable {
         return stdDev;
     }
 
-    protected void setStdDev(double stdDev) {
-        if (stdDev < 0) throw new IllegalArgumentException("Error must be >= 0");
+    protected void setStdDev(Double stdDev) {
+        if (stdDev != null && stdDev < 0) throw new IllegalArgumentException("Error must be >= 0");
         this.stdDev = stdDev;
     }
 
@@ -153,12 +153,10 @@ public class Timepoint implements Comparable<Timepoint>, Serializable {
         return stdError;
     }
 
-    protected void setStdError(double stdError) {
-        if (stdError < 0) throw new IllegalArgumentException("Error must be >= 0");
+    protected void setStdError(Double stdError) {
+        if (stdError != null && stdError < 0) throw new IllegalArgumentException("Error must be >= 0");
         this.stdError = stdError;
     }
-
-
 
     @Override
     public int compareTo(Timepoint o) {
