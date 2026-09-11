@@ -4,9 +4,9 @@ package ed.robust.dom.data;
 import static ed.robust.dom.data.Timepoint.STD_DEV;
 import static ed.robust.dom.data.Timepoint.STD_ERR;
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 /**
  * Representation of a timepoint that can be serialized to xml in a compact way. 
