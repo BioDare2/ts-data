@@ -9,12 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -22,15 +21,15 @@ import org.junit.rules.TemporaryFolder;
  */
 public class Workbook2TextConverterTest {
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
     
     public Workbook2TextConverterTest() {
     }
     
     Workbook2TextConverter instance;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         instance = new Workbook2TextConverter();
     }
@@ -40,15 +39,13 @@ public class Workbook2TextConverterTest {
         
             
             Path inFile = Paths.get(this.getClass().getResource("2CSVTest.xlsx").toURI());
-            Path outFile = testFolder.newFile().toPath();   
+	    Path outFile = testFolder.resolve("test_file.txt");
             instance.convert(inFile, outFile);
             
             assertTrue(Files.isRegularFile(outFile));
             assertTrue(Files.size(outFile) > 10);
             
             List<String> lines = Files.readAllLines(outFile);
-            
-            //lines.forEach( System.out::println);
             
             List<String> exp = List.of(
                     "",
@@ -65,18 +62,15 @@ public class Workbook2TextConverterTest {
     
     @Test
     public void testConvertsXLSFile() throws Exception {
-        
             
             Path inFile = Paths.get(this.getClass().getResource("2CSVTest.xls").toURI());
-            Path outFile = testFolder.newFile().toPath();   
+	    Path outFile = testFolder.resolve("test_file.txt");
             instance.convert(inFile, outFile);
             
             assertTrue(Files.isRegularFile(outFile));
             assertTrue(Files.size(outFile) > 10);
             
             List<String> lines = Files.readAllLines(outFile);
-            
-            //lines.forEach( System.out::println);
             
             List<String> exp = List.of(
                     "",
@@ -88,21 +82,17 @@ public class Workbook2TextConverterTest {
             );
             
             assertEquals(exp, lines);
-            
     }    
     
     @Test
-    @Ignore("Not commited test file")
+    @Disabled("Not commited test file")
     public void testConvertsMediumXLSFile() throws Exception {
-        
             
             Path inFile = Paths.get("E:\\Temp\\long_255x5000.xls");
-            Path outFile = testFolder.newFile().toPath();   
+            Path outFile = testFolder.resolve("test_file.txt");   
             instance.convert(inFile, outFile);
             
             assertTrue(Files.isRegularFile(outFile));
             assertTrue(Files.size(outFile) > 5000);
-            
-            
     }     
 }

@@ -11,12 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.io.TempDir;
 
 
 /**
@@ -25,18 +23,14 @@ import org.junit.rules.TemporaryFolder;
  */
 public class XLSX2TextConverterTest {
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
     
     public XLSX2TextConverterTest() {
     }
-    
-    @Before
-    public void setUp() {
-    }
 
     @Test
-    @Ignore("Not commited test file")
+    @Disabled("Not commited test file")
     public void testCanSaveLargeToCSV() throws Exception {
         
         Path inFile = Paths.get("E:\\Temp\\long_5000x1200.xlsx");
@@ -82,7 +76,8 @@ public class XLSX2TextConverterTest {
             XLSX2TextConverter xlsx2csv = new XLSX2TextConverter();
             
             Path inFile = Paths.get(this.getClass().getResource("2CSVTest.xlsx").toURI());
-            Path outFile = testFolder.newFile().toPath();   
+	    Path outFile = testFolder.resolve("output_file.csv");
+
             xlsx2csv.convert(inFile, outFile);
             
             assertTrue(Files.isRegularFile(outFile));

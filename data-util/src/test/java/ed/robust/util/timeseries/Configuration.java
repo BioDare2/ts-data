@@ -13,8 +13,8 @@ import java.nio.file.Paths;
  * @author tzielins
  */
 public class Configuration {
-    
-    public static Path tempDir = Paths.get("/home/dthedie/Temp");
+
+    public static Path tempDir;
     
     public static File tempFile(String name) {
         

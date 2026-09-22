@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -22,9 +22,8 @@ import org.junit.Test;
  */
 public class MakeLongDataTest {
     
-    
     @Test
-    @Ignore
+    @Disabled
     public void makeLongCSVColumnFile() throws Exception {
         
         int series = 255; //5000;
@@ -55,8 +54,6 @@ public class MakeLongDataTest {
                 out.write(line);
                 out.newLine();
             }
-            
         }
     }
-    
 }
