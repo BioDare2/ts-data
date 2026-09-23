@@ -4,10 +4,8 @@
  */
 package ed.robust.util.timeseries;
 
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -16,14 +14,6 @@ import org.junit.BeforeClass;
 public class DataRounderTest {
     
     public DataRounderTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
     }
 
     @Test 
@@ -45,7 +35,6 @@ public class DataRounderTest {
             exp = Double.NEGATIVE_INFINITY;            
             res = DataRounder.round(val, type);
             assertEquals(exp, res,1E-6);
-            
         }
     }
     
@@ -60,15 +49,11 @@ public class DataRounderTest {
             Double exp = (double)intval;           
             double res = DataRounder.round(val, type);
             assertEquals(exp, res,1E-6);
-            
         }
     }
     
-    
-    
     @Test
     public void testRound_double_ROUNDING_TYPE() {
-        System.out.println("round");
         
         DataRounder rounder = new DataRounder(ROUNDING_TYPE.HALF_INT);
         double val = Math.random()*1000;
@@ -91,8 +76,6 @@ public class DataRounderTest {
             else if (value == 41) f41++;
             else err++;
         }
-        
         System.out.println("40: "+f40+" 40.5: "+f405+" f41: "+f41+" e: "+err);
     }
-
 }

@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ed.robust.util.timeseries;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  *
@@ -14,10 +11,21 @@ import java.nio.file.Paths;
  */
 public class Configuration {
 
-    public static Path tempDir;
+    private static Path tempDir;
+
+    public static Path getTempDir() {
+	if (tempDir == null) {
+	    try {
+		tempDir = Files.createTempDirectory("Temp");
+		tempDir.toFile().deleteOnExit();
+	    } catch (IOException e) {
+		throw new RuntimeException("Failed to create temporary directory", e);
+	    }
+	}
+	return tempDir;
+    }
     
     public static File tempFile(String name) {
-        
-        return tempDir.resolve(name).toFile();
+        return getTempDir().resolve(name).toFile();
     }
 }

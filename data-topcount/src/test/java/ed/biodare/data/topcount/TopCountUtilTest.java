@@ -18,11 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -30,8 +29,8 @@ import org.junit.rules.TemporaryFolder;
  */
 public class TopCountUtilTest {
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
     
     static final double EPS = 1E-6;
     
@@ -40,14 +39,16 @@ public class TopCountUtilTest {
     public TopCountUtilTest() {
     }
     
-    @Before
+    @BeforeEach
     public void setUp() {
         instance = new TopCountUtil();
     }
 
     @Test
     public void getNamesOfFilePartsWorks() throws Exception {
-        Path dir = testFolder.newFolder("parent").toPath();
+        Path dir = testFolder.resolve("parent");
+
+	Files.createDirectories(dir);
         
         String name1 = "0023";
         String name2 = "0025";
@@ -64,13 +65,14 @@ public class TopCountUtilTest {
         List<String> res = instance.getNamesOfFileParts(dir, name1);
         
         assertEquals(exp,res);
-        
     }
     
     @Test
     public void getNamesOfFilePartsSkipsNotNumericalExtensions() throws Exception {
                
-        Path dir = testFolder.newFolder("parent").toPath();
+        Path dir = testFolder.resolve("parent");
+
+	Files.createDirectories(dir);
         
         String name1 = "0023";
         String name2 = "0025";
@@ -87,7 +89,6 @@ public class TopCountUtilTest {
         List<String> res = instance.getNamesOfFileParts(dir, name1);
         
         assertEquals(exp,res);
-        
     }
     
     @Test
@@ -98,7 +99,7 @@ public class TopCountUtilTest {
         Pattern pattern = instance.platePattern(plate);
         
         for (String fName:fNames) {
-            assertTrue(fName,pattern.matcher(fName).matches());
+            assertTrue(pattern.matcher(fName).matches(), fName);
         }
     }
     
@@ -110,14 +111,12 @@ public class TopCountUtilTest {
         Pattern pattern = instance.platePattern(plate);
         
         for (String fName:fNames) {
-            assertFalse(fName,pattern.matcher(fName).matches());
+            assertFalse(pattern.matcher(fName).matches(), fName);
         }
     } 
     
     @Test
     public void testJoinBlocks() throws Exception {
-        //System.out.println("join blocks");
-        
         
         List<DataBlock> blocks = new ArrayList<>();
         
@@ -176,8 +175,6 @@ public class TopCountUtilTest {
     
     @Test
     public void testFixTimes() throws Exception {
-        //System.out.println("fixTimes");
-        
 
         boolean checkFrames = false;
         
@@ -261,13 +258,11 @@ public class TopCountUtilTest {
                     assertEquals(exp.getValue(),res.getValue(),EPS);
                 
             }
-            
         }
     }
     
     @Test
     public void testValidateDataBlock() throws Exception {
-        //System.out.println("validateDataBlock");
         
         boolean checkFrames = true;
         
@@ -326,7 +321,4 @@ public class TopCountUtilTest {
         blocks.add(new DataBlock(table));
         instance.validateDataBlocks(blocks,checkFrames);
     }
-    
-    
-    
 }

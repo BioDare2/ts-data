@@ -4,8 +4,8 @@
  */
 package ed.robust.util.timeseries;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -100,7 +100,5 @@ public class SmartDataRounderTest {
         expResult = 1235;
         result = SmartDataRounder.round(value,ref);
         assertEquals(expResult, result, EPS);
-        
     }
-    
 }

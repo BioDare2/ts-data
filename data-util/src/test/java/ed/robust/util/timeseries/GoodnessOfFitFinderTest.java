@@ -5,10 +5,8 @@
 package ed.robust.util.timeseries;
 
 import ed.robust.dom.data.TimeSeries;
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -18,15 +16,6 @@ public class GoodnessOfFitFinderTest {
     
     public GoodnessOfFitFinderTest() {
     }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     
     protected GoodnessOfFitFinder makeInstance(GoodnessOfFitFinder.REF_TYPE type) {
         return makeInstance(type,GoodnessOfFitFinder.GOF_METHOD.ABS_MEAN_PL_STD);
@@ -36,10 +25,8 @@ public class GoodnessOfFitFinderTest {
         return new GoodnessOfFitFinder(type, method);
     }
     
-    
     @Test
     public void testGOFMonotonity() {
-        System.out.println("chekcing monotonous gof values");
         
         double period = 24.5;
         double phase = 5;
@@ -72,20 +59,16 @@ public class GoodnessOfFitFinderTest {
                 assertTrue(gof > prev);
             prev = gof;
         }
-        
     }
-    
     
     @Test
     public void testGOFMonotonity2() {
-        System.out.println("chekcing monotonous gof values2");
         
         double period = 24.5;
         
         double amplitude = 2;
         double step = 1;
         int N = 100;
-        
         
         TimeSeries data = TSGenerator.makeDblPulse(N, step, period, 0, amplitude);
         TimeSeries fit = data;
@@ -100,7 +83,6 @@ public class GoodnessOfFitFinderTest {
         
         double prev = 0;
         
-        
         for (double phase = 1;phase < period/2;phase+=1) {
             fit = TSGenerator.makeDblPulse(N, step, period, phase, amplitude);
             gof = instance.findGOF(data, fit);
@@ -111,12 +93,10 @@ public class GoodnessOfFitFinderTest {
                 assertTrue(gof > prev);
             prev = gof;
         }
-        
     }
     
     @Test
     public void testGOFWrongness() {
-        System.out.println("chekcing wrong fits");
         
         double period = 24.5;
         double phase = 5;
@@ -151,9 +131,7 @@ public class GoodnessOfFitFinderTest {
         exp = GoodnessOfFitFinder.VERY_BAD;
         gof = instance.findGOF(data, fit);        
         assertEquals(exp, gof,EPS);
-        
     }
-    
     
     //@Test
     public void testFindGOF_TimeSeries_TimeSeries() {
@@ -164,7 +142,6 @@ public class GoodnessOfFitFinderTest {
         double amplitude = 2;
         double step = 1;
         int N = 100;
-        
         
         TimeSeries data = TSGenerator.makeDblPulse(N, step, period, phase, amplitude);
         TimeSeries fit = data;
@@ -230,7 +207,6 @@ public class GoodnessOfFitFinderTest {
         assertTrue(result2>=instance.VERY_BAD);
         assertTrue(result2>=result1);
         
-        
         double[] t = new double[100];
         double[] v = new double[t.length];
         
@@ -253,5 +229,4 @@ public class GoodnessOfFitFinderTest {
         System.out.println(result2);       
         assertTrue(result2>=instance.VERY_BAD);
     }
-
 }

@@ -11,10 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -22,15 +20,6 @@ import static org.junit.Assert.*;
  */
 public class TSGeneratorTest {
   
-    
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     @Test
     public void testMakeLine() {
         
@@ -87,7 +76,6 @@ public class TSGeneratorTest {
         
         assertFalse(TSGenerator.haveSameTimes(t1, t3));
         assertFalse(TSGenerator.haveSameTimes(t2, t3));
-       
     }
     
     @Test
@@ -119,7 +107,6 @@ public class TSGeneratorTest {
         } catch (IllegalArgumentException e) {
             
         }
-       
     }
     
     @Test
@@ -151,7 +138,6 @@ public class TSGeneratorTest {
         } catch (IllegalArgumentException e) {
             
         }
-       
     }
     
     @Test
@@ -174,22 +160,12 @@ public class TSGeneratorTest {
             TimeSeries t2 = TSGenerator.randomHollow(t1, i);
             series.add(t2);
         }
-        
-        
-        File file = new File("E:/Temp/ser.csv");
-        
-        //TimeSeriesFileHandler.saveToText(series, file, ",");
-        
-        
-       
     }
     
     @Test
     public void testAddNoise() throws IOException {
         
        List<TimeSeries> series = new ArrayList<TimeSeries>();
-       File file = new File("E:/Temp/ser.csv");
-       
        
        double period = 20;
        double amplitude = 1;
@@ -205,17 +181,12 @@ public class TSGeneratorTest {
        t = TSGenerator.makeCos(N, step, period, amplitude,phase);
        series.add(t);
        series.add(TSGenerator.addNoise(t, 0.5));
-       
-       //handler.saveToText(series, file, ",");
-       
    }
     
     @Test
     public void testFunctions() throws IOException {
         
        List<TimeSeries> series = new ArrayList<TimeSeries>();
-       File file = new File("E:/Temp/ser.csv");
-       
        
        double period = 25;
        double amplitude = 1;
@@ -223,7 +194,6 @@ public class TSGeneratorTest {
        
        double step = 1;
        int N = (int)(5*period/step);
-       
        
        series.add(TSGenerator.makeCos(N, step, period, phase, amplitude));
        series.add(TSGenerator.makeWave(N, step, period, phase, amplitude));
@@ -235,37 +205,6 @@ public class TSGeneratorTest {
        series.add(TSGenerator.makePulse(N, step, period, phase,amplitude));
        
        series.add(TSGenerator.makeDblPulse(N, step, period, phase,amplitude));
-       
-       //TimeSeriesFileHandler.saveToText(series, file, ",");
-    }
-
-    //@Test 
-    public void testDumpen() throws IOException, RobustFormatException  {
-       List<TimeSeries> series = new ArrayList<TimeSeries>();
-       File file = new File("E:/Temp/ser-d.csv");
-       
-       
-       double period = 25;
-       double amplitude = 1;
-       double phase = 10;
-       
-       double step = 1;
-       int N = (int)(5*period/step);
-       
-       
-       TimeSeries data = TSGenerator.makeCos(N, step, period, phase, amplitude);
-       TimeSeries dampen = TSGenerator.dampen(data, 0.5);
-       
-       series.add(data);
-       series.add(dampen);
-       
-       data = TimeSeriesFileHandler.readFromText(new File("E:/Temp/line.csv"), ",").get(0);
-       dampen = TSGenerator.dampen(data,0.00001);
-       
-       series.add(data);
-       series.add(dampen);       
-       
-       TimeSeriesFileHandler.saveToText(series, file, ",");
     }
     
     @Test

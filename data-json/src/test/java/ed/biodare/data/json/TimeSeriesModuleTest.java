@@ -14,10 +14,8 @@ import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.SerializationFeature;
 import ed.robust.dom.data.TimeSeries;
 import ed.robust.dom.data.Timepoint;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -28,14 +26,6 @@ public class TimeSeriesModuleTest {
     public TimeSeriesModuleTest() {
     }
     
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void serializedTS() throws JacksonException {
         
@@ -66,6 +56,4 @@ public class TimeSeriesModuleTest {
         TimeSeries cpy = mapper.readValue(json, TimeSeries.class);
         assertEquals(data,cpy);
     }
-
-    
 }

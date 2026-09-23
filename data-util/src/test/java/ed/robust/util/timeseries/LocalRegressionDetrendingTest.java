@@ -16,10 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.junit.AfterClass;
-import org.junit.Test;
-import org.junit.BeforeClass;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -31,15 +29,6 @@ public class LocalRegressionDetrendingTest {
     public LocalRegressionDetrendingTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    
     @Test
     public void testSanitizeAmpTrend() {
     
@@ -61,7 +50,6 @@ public class LocalRegressionDetrendingTest {
         for (int i =0;i<range;i++) assertTrue(sane[i] > 0);
         for (int i = range;i<ampTrend.length-range;i++) assertEquals(ampTrend[i],sane[i],EPS);
         for (int i =ampTrend.length-range;i<ampTrend.length;i++) assertTrue(sane[i] > 0);
-        
     }
     
     @Test
@@ -104,12 +92,10 @@ public class LocalRegressionDetrendingTest {
         exp = (2+4+5)/3.0;
         res = instance.correctAmpForZero(position, ampTrend, orgAmp);
         assertEquals(exp,res,EPS);
-        
     }
     
     @Test
     public void testLIN_EPS_VALUES() throws Exception {
-        System.out.println("test line eps");
         
         double step = 1;
         List<TimeSeries> testData = makeTestSeries(24.3,step);
@@ -143,7 +129,6 @@ public class LocalRegressionDetrendingTest {
         }
         System.out.println(LocalRegressionDetrending.LIN_EPS+ "took :"+ (System.currentTimeMillis()-sT));
         
-        
         for (int i = 0;i<testData.size();i++) {
             TimeSeries tr1 = detrended1.get(i);
             TimeSeries tr2 = detrended2.get(i);
@@ -157,27 +142,17 @@ public class LocalRegressionDetrendingTest {
             for (double e=0.1;e>1E-4;e=e/10) {
                 if (err > e) {
                     System.out.println("Diff: "+e+", "+err+", j"+j+"-"+i);
-                    //if (j > 20 && j < (tr1.size()-20)) stop = true;
                     break;
                 }
             };
             if (stop) break;
             };
-            /*
-            assertTrue("0.01", tr1.almostEquals(tr2, 0.01));
-            assertTrue("0.001", tr1.almostEquals(tr2, 0.001));
-            assertTrue("0.0001", tr1.almostEquals(tr2, 0.0001));
-            //assertTrue("0.00001", tr1.almostEquals(tr2, 0.00001));
-            * 
-            */
         }
-        
     }
     
     @Test
     public void testJoin() {
         
-        System.out.println("check joins stats");
         double[] a = {0,1,2,3};
         double[] b = {};
         double[] c = {4,5};
@@ -193,11 +168,9 @@ public class LocalRegressionDetrendingTest {
     
     @Test 
     public void predictTrendValueTest() throws Exception {
-        System.out.println("predict trend value");
     
         double[] trend = {-1,0,1,1,2};
         double[] times = {-1,0,1,2,3};
-        
         
         LocalRegressionDetrending instance = new LocalRegressionDetrending();
         int start = 2;
@@ -218,13 +191,10 @@ public class LocalRegressionDetrendingTest {
         x = 4;
         res = instance.predictTrendValue(x, times, trend, start, end);
         assertEquals(3, res,EPS);
-        
-        
     }
     
     @Test
     public void checkLinRegres() throws Exception {
-        System.out.println("check lin reg1");
         
         double timeStep = 1;
         TimeSeries data = TSGenerator.makeDblPulse(100, timeStep, 24.2, 5, 2);
@@ -250,7 +220,6 @@ public class LocalRegressionDetrendingTest {
         }
         
         start = 10;
-        //end = times.length/2;
         trend1 = instance.localLinRegresionSubset(times, values,timeStep,band,start,end);
         assertEquals(times.length-start, trend1.length);
         
@@ -272,30 +241,7 @@ public class LocalRegressionDetrendingTest {
         
         trend1 = instance.localLinRegresionSubset(times, values,timeStep,band,start,end);
         assertEquals(2, trend1.length);
-        
     }
-    
-    //@Test
-    public void checkTrendsStats() throws Exception {
-        System.out.println("check trends stats");
-        
-        File dataDir = new File("D:/Performance/trends");
-        File outDir = new File("D:/Performance/trends-anal");
-        
-        
-        if (!outDir.exists()) outDir.mkdir();
-        
-        //List<File> files = getFiles(dataDir);
-        
-        List<File> files = Arrays.asList(new File(dataDir,"trd_4.0_gen_5d_f1.0.csv"));
-        //List<File> files = Arrays.asList(new File(dataDir,"dmpMEAN_0.8gen_5d_f1.0.csv"));
-        //List<File> files = Arrays.asList(new File(dataDir,"trd_4.0_dmpMEAN_0.4gen_5d_f1.0.csv"));
-        
-        for (File file : files) {
-            
-            doTrendsStats(file,outDir);
-        }
-    }    
     
     protected void doTrendsStats(File file,File outDir) throws IOException, RobustFormatException, InterruptedException {
         
@@ -311,10 +257,8 @@ public class LocalRegressionDetrendingTest {
         List<TimeSeries> ampTrends = new ArrayList<TimeSeries>();
         
         List<DescriptiveStatistics> stats = new ArrayList<DescriptiveStatistics>();
-        //DescriptiveStatistics globaal = new DescriptiveStatistics();
         
         LocalRegressionDetrending instance = new LocalRegressionDetrending();
-        
         
         int i = 1;
         for(TimeSeries data : series) {
@@ -342,7 +286,6 @@ public class LocalRegressionDetrendingTest {
         TimeSeriesFileHandler.saveToText(ampTrends, new File(outDir,fName+".amp1.csv"), ",",ids);
         
         saveToText(stats,ids,new File(outDir,fName+".stats.csv"),",");
-        
     }
     
     protected void saveToText(List<DescriptiveStatistics> stats,List<String> ids,File file,String SEP) throws IOException {
@@ -368,7 +311,6 @@ public class LocalRegressionDetrendingTest {
             out.write(sb.toString());
             out.newLine();
         }
-        
         out.close();
     }
     
@@ -384,12 +326,9 @@ public class LocalRegressionDetrendingTest {
         return stat;
     }
     
-    
     protected TimeSeries buildTS(DataSource source, double step) {
-        
         return new TimeSeries(source.getTimepoints(step, ROUNDING_TYPE.DECY));
     }
-    
     
     protected static List<File> getFiles(File dir) {
         
@@ -398,13 +337,11 @@ public class LocalRegressionDetrendingTest {
         for (File file : dir.listFiles()) {
             if (file.isFile()) list.add(file);
         }
-        
         return list;
     }
     
     @Test
     public void testDetrend() throws Exception {
-        System.out.println("test detrend");
         
         double step = 1;
         List<TimeSeries> testData = makeTestSeries(25,step);
@@ -433,11 +370,8 @@ public class LocalRegressionDetrendingTest {
         TimeSeriesFileHandler.saveToText(results, Configuration.tempFile("smart_detrend4.csv"), ",");
     }
     
-    
-    
     @Test
     public void testDoBaselineDetrending() throws Exception {
-        System.out.println("doBaselineDetrending");
         
         double step = 1;
         List<TimeSeries> testData = makeTestSeries(15,step);
@@ -456,12 +390,10 @@ public class LocalRegressionDetrendingTest {
             results.add(detrended);
         }
         TimeSeriesFileHandler.saveToText(results, Configuration.tempFile("trends.csv"), ",");
-        
     }
 
     @Test
     public void testDoAmplitudeAndBaselineDetrending() throws Exception {
-        System.out.println("doAmplitudeAndBaselineDetrending");
         
         double step = 1;
         List<TimeSeries> testData = makeTestSeries(15,step);
@@ -483,7 +415,6 @@ public class LocalRegressionDetrendingTest {
     
     @Test
     public void testAddTrend() throws Exception {
-        System.out.println("addTrend");
         
         double step = 1;
         List<TimeSeries> testData = makeTestSeries(15,step);
@@ -514,12 +445,10 @@ public class LocalRegressionDetrendingTest {
             TimeSeries tr = trended.get(i);
             assertTrue(data.almostEquals(tr, 1E-6));
         }
-        
     }
     
     @Test
     public void testClassicSmartDetrending() throws Exception {
-        System.out.println("compareSmartDetrending");
         
         double step = 1;
         int N = 100;
@@ -545,7 +474,6 @@ public class LocalRegressionDetrendingTest {
         
         assertTrue(newR2.almostEquals(newR, 1E-9));
     }
-
     
     protected List<TimeSeries> makeTestSeries(double period,double step) {
         
@@ -581,10 +509,6 @@ public class LocalRegressionDetrendingTest {
         withTrend = TimeSeriesOperations.sum(withTrend,TSGenerator.makeSin(N, step, duration*3, 0, 4*amp));
         list.add(withTrend);
         
-        
         return list;
     }
-
-    
-
 }

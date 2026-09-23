@@ -7,12 +7,8 @@ package ed.robust.util.timeseries;
 import java.util.List;
 import ed.robust.dom.data.TimeSeries;
 import ed.robust.dom.data.Timepoint;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -22,28 +18,10 @@ public class BinningLinearTSInterpolatorTest {
     
     public BinningLinearTSInterpolatorTest() {
     }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     
     @Test
     public void testOutOfRange() {
         
-        System.out.println("Test out of range");
         DataSource ds = LocalRegressionDetrending.makeLineDataSource(0, 90, 0, 1);
         double value = ds.getValue(90);
         assertEquals(1, value,0.00001);
@@ -52,13 +30,12 @@ public class BinningLinearTSInterpolatorTest {
         value = ds.getValue(80.5);
         assertEquals(1, value,0.00001);        
     }
+    
     /**
      * Test of getValue method, of class BinningLinearTSInterpolator.
      */
     @Test
     public void testGetValue1() {
-        System.out.println("getValue1");
-        
         
         TimeSeries data = new TimeSeries();
         
@@ -98,7 +75,6 @@ public class BinningLinearTSInterpolatorTest {
         expResult = 5;
         result = instance.getValue(time);
         assertEquals(expResult, result, 0.0000001);
-        
     }
 
     /**
@@ -106,7 +82,6 @@ public class BinningLinearTSInterpolatorTest {
      */
     @Test
     public void testGetFirstAndLast() {
-        System.out.println("getFirst");
         
         TimeSeries data = new TimeSeries();
         
@@ -143,7 +118,6 @@ public class BinningLinearTSInterpolatorTest {
         expResult = new Timepoint(10,5);
         result = instance.getLast();
         assertEquals(expResult, result);        
-        
     }
 
     /**
@@ -151,7 +125,6 @@ public class BinningLinearTSInterpolatorTest {
      */
     //@Test
     public void testGetLast() {
-        System.out.println("getLast");
         BinningLinearTSInterpolator instance = null;
         Timepoint expResult = null;
         Timepoint result = instance.getLast();
@@ -165,7 +138,6 @@ public class BinningLinearTSInterpolatorTest {
      */
     @Test
     public void testInterpolate() {
-        System.out.println("interpolate");
         double t = 5.0;
         Timepoint left = new Timepoint(1,1);
         Timepoint right = new Timepoint(10,1);
@@ -180,19 +152,15 @@ public class BinningLinearTSInterpolatorTest {
         expResult = 5;
         result = BinningLinearTSInterpolator.interpolate(5, left, right);
         assertEquals(expResult, result, 0.00001);
-        
     }
     
     @Test
     public void testGetValue2() {
-        System.out.println("getValue2");
         
         TimeSeries data = TSGenerator.makeStep(50,2, 25, 5,2);
         
         TimeSeriesInterpolator instance = new BinningLinearTSInterpolator(data,ROUNDING_TYPE.MIL);
 
-       //System.out.println("AVG: "+instance.getAverageStep());
-        
         Timepoint tp = data.getFirst();
         
         double time = tp.getTime();
@@ -237,10 +205,8 @@ public class BinningLinearTSInterpolatorTest {
         assertEquals(expResult, result, 0.0001);
     }
     
-    
     @Test
     public void testMakeInterpolation() {
-        System.out.println("make Interpolation");
         
         TimeSeries data = new TimeSeries();
         data.add(1.012,1);
@@ -262,13 +228,5 @@ public class BinningLinearTSInterpolatorTest {
         for(int i = 0;i<result.size();i++) {
             assertEquals(expResult.get(i), result.get(i));
         }
-         
-        // */
-        
-        /*
-        for (Timepoint tp : result) {
-            System.out.println(tp.getTime()+"\t"+tp.getValue());
-        }*/
     }
-    
 }

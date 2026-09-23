@@ -5,8 +5,8 @@
 package ed.robust.util.timeseries;
 
 import ed.robust.dom.data.TimeSeries;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -18,7 +18,6 @@ public class TimeStepFinderTest {
     
     public TimeStepFinderTest() {
     }
-
     
     @Test
     public void testEmpty() {
@@ -34,7 +33,7 @@ public class TimeStepFinderTest {
         } catch (IllegalArgumentException e) {
             
         }
-        
+
         try {
             data.add(1,2);
             double step = finder.findTimeStep(data);

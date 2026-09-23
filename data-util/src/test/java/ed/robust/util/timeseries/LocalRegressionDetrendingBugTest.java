@@ -13,13 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -30,42 +30,8 @@ public class LocalRegressionDetrendingBugTest {
     double EPS = 1E-4;
     LocalRegressionDetrending LRDetrending = new LocalRegressionDetrending();
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
-    
-    
-    //@Test
-    public void generateSanityCheckData() throws IOException {
-        List<TimeSeries> orgs = new ArrayList<>();
-        
-        int N = 100;
-        double step = 1;
-        
-        orgs.add(TSGenerator.makeLine(N, step, 0, 2));
-        orgs.add(TSGenerator.makeLine(N, step, 0.1, 0));
-        orgs.add(TSGenerator.makeLine(N, step, 0.1, 1));
-        
-        orgs.add(TSGenerator.makeCos(N, step, 24, 0, 2));
-        orgs.add(TSGenerator.makeCos(N, step, 24, 6, 2));
-        orgs.add(TSGenerator.makeCos(N, step, 24, 12, 2));
-        
-        orgs.add(TSGenerator.makeDblPulse(N, step, 24, 0, 2));
-        orgs.add(TSGenerator.makeDblPulse(N, step, 24, 6, 2));
-        orgs.add(TSGenerator.makeDblPulse(N, step, 24, 12, 2));
-        
-        orgs.add(TSGenerator.makeWave(N, step, 24, 0, 2));
-        orgs.add(TSGenerator.makeWave(N, step, 24, 6, 2));
-        orgs.add(TSGenerator.makeWave(N, step, 24, 12, 2));
-        
-        List<TimeSeries> dmp = new ArrayList<>();
-        for (TimeSeries ser : orgs) dmp.add(TSGenerator.dampen(ser, 0.3));
-        
-        orgs.addAll(dmp);
-        
-        File file = Configuration.tempFile("AMB_BASE.DTR.csv");
-        //TimeSeriesFileHandler.saveToText(orgs, file, ",");
-        
-    }
+    @TempDir
+    public Path testFolder;
     
     @Test
     public void debugDificultCases() throws InterruptedException, IOException, RobustFormatException {
@@ -75,8 +41,6 @@ public class LocalRegressionDetrendingBugTest {
 
         List<TimeSeries> res = new ArrayList<>();
         
-        //TimeSeries ser = orgs.get(5);
-        //orgs = Arrays.asList(orgs.get(0),orgs.get(3),orgs.get(11));
         orgs = Arrays.asList(orgs.get(11));
         for (TimeSeries org : orgs) {
             
@@ -107,7 +71,6 @@ public class LocalRegressionDetrendingBugTest {
                 }
             }
             
-            
             double[] amplitudeTrendValues = LRDetrending.getClassicAmpTrend(times, detrended, 1);
             
             TimeSeries ser = new TimeSeries(times,values);
@@ -115,7 +78,6 @@ public class LocalRegressionDetrendingBugTest {
             TimeSeries bdetr = new TimeSeries(times,detrended);
             TimeSeries absT = new TimeSeries(times,abs);
             TimeSeries ampTrend = new TimeSeries(times,amplitudeTrendValues);
-            
             
             res.add(org);
             res.add(ser);
@@ -145,18 +107,9 @@ public class LocalRegressionDetrendingBugTest {
             }
 
             res.add(baseTrend2);
-            //res.add(baseTrend3);
-            //res.add(baseTrend4);
             res.add(ampTrend2);
             res.add(dtr);
-            
-            //res.add(dtr);
         }
-        
-        File out = Configuration.tempFile("diff.dtr.debug.csv");
-        //TimeSeriesFileHandler.saveToText(res, out, ",");
-        
-        //fail("As expected");
     }
     
     @Test
@@ -167,8 +120,6 @@ public class LocalRegressionDetrendingBugTest {
 
         List<TimeSeries> res = new ArrayList<>();
         
-        //TimeSeries ser = orgs.get(5);
-        //orgs = Arrays.asList(orgs.get(0),orgs.get(3),orgs.get(11));
         for (TimeSeries ser : orgs) {
             LocalRegressionDetrending.TrendPack trend;
             trend = LRDetrending.findClassicTrends(ser, true, false);
@@ -182,17 +133,8 @@ public class LocalRegressionDetrendingBugTest {
                 ampTrend.add(tp.getTime(),trend.amplitudeTrend.getValue(tp.getTime()));
             }
 
-            //List<TimeSeries> res = Arrays.asList(ser,baseTrend,ampTrend);
-            //res.add(ser);
-            //res.add(baseTrend);
-            //res.add(ampTrend);
             res.add(dtr);
         }
-        
-        File out = Configuration.tempFile("diff.dtr.case.res.csv");
-        //TimeSeriesFileHandler.saveToText(res, out, ",");
-        
-        //fail("As expected");
     }
     
     @Test
@@ -205,14 +147,12 @@ public class LocalRegressionDetrendingBugTest {
         for (TimeSeries ser : orgs) {
             LocalRegressionDetrending.TrendPack pack;
             pack = LRDetrending.findSmartTrends(ser,false);
-            //pack = LRDetrending.findClassicTrends(ser);
             res.add(ser);
             res.add(LocalRegressionDetrending.removeTrend(ser, pack));
         }
         
         File file = Configuration.tempFile("AMB_BASE.DTR.res2.csv");
         TimeSeriesFileHandler.saveToText(res, file, ",");
-        
     }
     
     @Test
@@ -254,8 +194,6 @@ public class LocalRegressionDetrendingBugTest {
         ser = pack.amplitudeTrend.getTimepoints(1, ROUNDING_TYPE.NO_ROUNDING);
         assertEquals(data.size(),ser.size());
         for (Timepoint tp : ser) assertNotNull(tp);
-        
-        
     }
     
     @Test
@@ -297,8 +235,6 @@ public class LocalRegressionDetrendingBugTest {
         ser = pack.amplitudeTrend.getTimepoints(1, ROUNDING_TYPE.NO_ROUNDING);
         assertEquals(data.size(),ser.size());
         for (Timepoint tp : ser) assertNotNull(tp);
-        
-        
     }
     
     @Test
@@ -314,7 +250,6 @@ public class LocalRegressionDetrendingBugTest {
         
         for (Timepoint tp : res)
             assertEquals(0,tp.getValue(),EPS);
-        
     }
     
     @Test
@@ -330,9 +265,7 @@ public class LocalRegressionDetrendingBugTest {
         
         for (Timepoint tp : res)
             assertEquals(0,tp.getValue(),EPS);
-        
     }
-    
     
     @Test
     public void testEdwardsFailing() throws RobustFormatException, IOException, InterruptedException {
@@ -352,8 +285,6 @@ public class LocalRegressionDetrendingBugTest {
                 fail("At: "+i+"; "+e.getMessage());
             }
         }
-        
-        //fail("As expected");
     }
     
     @Test
@@ -374,10 +305,7 @@ public class LocalRegressionDetrendingBugTest {
                 fail("At: "+i+"; "+e.getMessage());
             }
         }
-        
-        //fail("As expected");
     }
-    
     
     @Test
     public void testCorruptedResult() throws Exception {
@@ -388,7 +316,7 @@ public class LocalRegressionDetrendingBugTest {
         
         assertFalse(series.isEmpty());
         
-        File tmpFile = testFolder.newFile("lrdtmp.ser");
+        File tmpFile = testFolder.resolve("lrdtmp.ser").toFile();
         
         for (int ix = 0;ix<series.size();ix++) {
             TimeSeries data = series.get(ix);
@@ -397,8 +325,7 @@ public class LocalRegressionDetrendingBugTest {
             
             TimeSeries res =  LocalRegressionDetrending.removeTrend(data, pack);
             assertNotNull(res);
-            //assertEquals(data.size(),res.size());
-            //if (!data.isEmpty()) assertFalse(res.isEmpty());
+
             try {
                 serialize(res,tmpFile);
             } catch (Exception e) {
@@ -418,7 +345,7 @@ public class LocalRegressionDetrendingBugTest {
         
         assertFalse(series.isEmpty());
         
-        File tmpFile = testFolder.newFile("lrdtmp.ser");
+        File tmpFile = testFolder.resolve("lrdtmp.ser").toFile();
         
         for (int ix = 0;ix<series.size();ix++) {
             TimeSeries data = series.get(ix);
@@ -438,7 +365,6 @@ public class LocalRegressionDetrendingBugTest {
             }
         }
     }
-    
 
     private void serialize(Serializable obj, File file) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {

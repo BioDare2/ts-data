@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -63,8 +63,6 @@ public class SimpleTokenizerTest {
             results.add(result);
         }
         assertEquals(expResults, results);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -94,9 +92,7 @@ public class SimpleTokenizerTest {
             if (token.is(TokenType.EOLn)) expResult++;
             token = instance.getNext();
         }
-
         assertEquals(4, result);            
-        
     }
 
     /**
@@ -137,10 +133,7 @@ public class SimpleTokenizerTest {
         line = "  B 	01:00:00 AM	   	11:30:15 AM";
         expResult = Arrays.asList(new TextToken("B"),new TimeToken("01:00:00 AM",1),Token.newEmpty(),new TimeToken("11:30:15 AM",11.0+30.0/60+15.0/60.0/60.0),Token.newEOLN());
         result = instance.parseTokens(line);
-        //System.out.println(expResult);
-        //System.out.println(result);
         assertEquals(expResult, result);        
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -168,13 +161,6 @@ public class SimpleTokenizerTest {
         result = instance.parseToken(part);        
         assertEquals(expType, result.type);
         assertEquals(expText,result.getTextVal());        
-        
-        /*part = null;
-        result = instance.parseToken(part);        
-        assertEquals(expType, result.type);
-        assertEquals(expText,result.getTextVal());        
-        */ 
-        //fail("The test case is a prototype.");
     }
     
     @Test
@@ -215,7 +201,6 @@ public class SimpleTokenizerTest {
         assertEquals(expType, result.type);
         assertEquals(expText,result.getTextVal());        
         assertEquals(expVal, result.getIntVal());
-        //fail("The test case is a prototype.");
     }
     
     @Test
@@ -256,7 +241,6 @@ public class SimpleTokenizerTest {
         assertEquals(expType, result.type);
         assertEquals(expText,result.getTextVal());        
         assertEquals(expVal, result.getDoubleVal(),EPS);
-        //fail("The test case is a prototype.");
     }
     
     @Test
@@ -321,76 +305,8 @@ public class SimpleTokenizerTest {
         result = instance.parseToken(part);        
         assertEquals(expType, result.type);
         assertEquals(expText,result.getTextVal());        
-        
      }
 
-    /*@Test
-    public void testAMDatePatterns() throws FormatException {
-        
-        SimpleTokenizer instance = new SimpleTokenizer((BufferedReader)null);
-        
-        String in = "";
-        in = "05:40:47 PM";        
-        Matcher m = instance.AMPattern.matcher(in);
-        assertTrue(m.matches());
-        
-        in = "11:00:15 AM";        
-        m = instance.AMPattern.matcher(in);
-        assertTrue(m.matches());
-        
-        in = "12:55:43 PM";        
-        m = instance.AMPattern.matcher(in);
-        assertTrue(m.matches());
-
-        in = "02:24:10 AM";        
-        m = instance.AMPattern.matcher(in);
-        assertTrue(m.matches());        
-        
-        in = "02:24:10 ";        
-        m = instance.AMPattern.matcher(in);
-        assertFalse(m.matches());        
-        
-        in = "02:24:10";        
-        m = instance.AMPattern.matcher(in);
-        assertFalse(m.matches());        
-    }    
-    
-    @Test
-    public void test24HDatePatterns() throws FormatException {
-        
-        SimpleTokenizer instance = new SimpleTokenizer((BufferedReader)null);
-        
-        String in = "";
-        in = "23:23:32";        
-        Matcher m = instance.H24Pattern.matcher(in);
-        assertTrue(m.matches());
-        
-        in = "00:11:13";        
-        m = instance.H24Pattern.matcher(in);
-        assertTrue(m.matches());
-        
-        in = "12:06:59";        
-        m = instance.H24Pattern.matcher(in);
-        assertTrue(m.matches());
-        
-        in = "02:24:10 AM";        
-        m = instance.H24Pattern.matcher(in);
-        assertFalse(m.matches());        
-        
-        in = "08:37:40 PM";        
-        m = instance.H24Pattern.matcher(in);
-        assertFalse(m.matches());        
-        
-        in = "02:24:10 AM ";        
-        m = instance.H24Pattern.matcher(in);
-        assertFalse(m.matches());        
-        
-        in = "08:37:40 PM ";        
-        m = instance.H24Pattern.matcher(in);
-        assertFalse(m.matches());        
-        
-    } */  
-    
     @Test
     public void testParseTime() throws FormatException {
         System.out.println("parse Time value");
@@ -444,7 +360,4 @@ public class SimpleTokenizerTest {
         result = instance.parseTime(part,m);
         assertEquals(expTime, result,EPS);        
     }    
-    
-    
-    
 }

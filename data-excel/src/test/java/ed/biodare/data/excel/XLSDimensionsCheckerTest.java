@@ -7,9 +7,9 @@ package ed.biodare.data.excel;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -22,7 +22,7 @@ public class XLSDimensionsCheckerTest {
     
     XLSDimensionsChecker instance;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         instance = new XLSDimensionsChecker();
     }
@@ -36,9 +36,7 @@ public class XLSDimensionsCheckerTest {
 
         int[] exp = {13, 14};
         
-
         assertArrayEquals(exp, rowsCols);
-            
     } 
     
     @Test
@@ -51,8 +49,6 @@ public class XLSDimensionsCheckerTest {
 
         int[] exp = {10001,256};
         
-
         assertArrayEquals(exp, rowsCols);
     }     
-    
 }

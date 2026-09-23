@@ -12,10 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -24,14 +22,6 @@ import org.junit.BeforeClass;
 public class TimeSeriesFileHandlerTest {
     
     public TimeSeriesFileHandlerTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
     }
 
     @Test 
@@ -44,9 +34,7 @@ public class TimeSeriesFileHandlerTest {
         data.add(1,4);
         data.add(2,2);
         
-        
         File cF = Configuration.tempFile("me.csv");
-        //assertTrue("cF file: "+cF.getAbsolutePath(),false);
         
         TimeSeriesFileHandler.saveToText(data, cF, ",");
         
@@ -56,7 +44,6 @@ public class TimeSeriesFileHandlerTest {
         expected.add(0,1);
         expected.add(1,3);
         expected.add(2,2);
-        
         
         checkSame(data,expected);
         
@@ -77,7 +64,6 @@ public class TimeSeriesFileHandlerTest {
         ser = TimeSeriesFileHandler.readFromText(cF, ",");
         
         checkSame(ser, expSer);  
-        
     }
     
     @Test
@@ -91,20 +77,12 @@ public class TimeSeriesFileHandlerTest {
         
          checkSame(data, data1);
         
-        
-       
-        
-        
         File cF = new File(dir,"c.csv");
-        //assertTrue("cF file: "+cF.getAbsolutePath(),false);
         
         TimeSeriesFileHandler.saveToText(data, cF, ",",ROUNDING_TYPE.NO_ROUNDING);
         
         File bF = new File(dir,"bra.txt");
         TimeSeriesFileHandler.saveToText(data,bF,"[ ]\t",ROUNDING_TYPE.NO_ROUNDING);
-
-        
-
         
         List<TimeSeries> read = null;
         
@@ -113,12 +91,10 @@ public class TimeSeriesFileHandlerTest {
             fail("IOException expected");
         } catch (IOException e) {};
         
-        
          try {
             read = TimeSeriesFileHandler.readFromText(cF, " ");
             fail("FormatException expected");
         } catch (RobustFormatException e) {};
-        
         
         checkSame(data,data1);
         
@@ -129,16 +105,11 @@ public class TimeSeriesFileHandlerTest {
         read = TimeSeriesFileHandler.readFromText(bF, "[ ]\t");
         
         checkSame(data1,read);
-         
         
         } catch(Exception e) {
             fail("Got exception: "+e.getMessage()+", "+e.getClass().getName());
         }
-        
     }
-    
-
- 
  
     protected List<TimeSeries> makeTimeSeries() {
         
@@ -172,8 +143,6 @@ public class TimeSeriesFileHandlerTest {
             ts.add((Math.random()*100), (Math.random()*100));
         }
         list.add(ts);
-        
-        
         
         return list;
     }
@@ -225,9 +194,6 @@ public class TimeSeriesFileHandlerTest {
             
             assertEquals(p1.getTime(), p2.getTime(),0.0001);
             assertEquals(p1.getValue(), p2.getValue(),0.0001);
-            
         }
-        
-        
     }
 }
