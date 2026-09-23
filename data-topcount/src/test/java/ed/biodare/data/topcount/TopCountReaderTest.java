@@ -20,11 +20,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -32,8 +31,8 @@ import org.junit.rules.TemporaryFolder;
  */
 public class TopCountReaderTest {
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
     double EPS = 1E-6;
     
     TopCountReader instance;
@@ -41,7 +40,7 @@ public class TopCountReaderTest {
     public TopCountReaderTest() {
     }
     
-    @Before
+    @BeforeEach
     public void setUp() {
         instance = new TopCountReader();
     }
@@ -142,7 +141,6 @@ public class TopCountReaderTest {
         assertEquals(96,data.size());
         series = data.get(new Pair<>(1,1));
         assertEquals(4,series.size());
-        
     }     
     
     @Test
@@ -165,7 +163,6 @@ public class TopCountReaderTest {
         assertEquals(96,data.size());
         series = data.get(new Pair<>(1,1));
         assertEquals(4,series.size());
-        
     }
     
     //form parsers tests
@@ -195,7 +192,6 @@ public class TopCountReaderTest {
     //from parser files
     @Test
     public void testFileParsingPlateParts() throws Exception {
-        //System.out.println("test plates parts");
         
         Path dir = Paths.get(this.getClass().getResource("20150401a").toURI());
         assertTrue(Files.isDirectory(dir));
@@ -218,7 +214,6 @@ public class TopCountReaderTest {
     //from parsers tests
     @Test
     public void testFileParsingPlatePartsWithBorkenFrames() throws Exception {
-        //System.out.println("test plates parts");
         
         instance = new TopCountReader(false);
         
@@ -238,7 +233,6 @@ public class TopCountReaderTest {
     //from parser tests
     @Test
     public void testFileParsingFromSarah() throws Exception {
-        //System.out.println("test file parsing2");
         
         Path file = Paths.get(this.getClass().getResource("1517.002").toURI());
         assertTrue(Files.isRegularFile(file));
@@ -251,7 +245,6 @@ public class TopCountReaderTest {
         
         assertEquals(17.0+13.0/60.0+58.0/3600,ser.getFirst().getTime(),EPS);
         assertEquals(94027,ser.getFirst().getValue(),EPS);
-        
     }
     
     //from parsers tests
@@ -406,8 +399,6 @@ public class TopCountReaderTest {
         assertEquals(bottomTime,bottom.getFirst().getTime(),EPS);
         assertEquals(lastTop,top.getLast().getValue(),EPS);
         assertEquals(lastBottom, bottom.getLast().getValue(),EPS);
-        
-        
     }
     
     //from parsers tests
@@ -433,9 +424,7 @@ public class TopCountReaderTest {
         assertNotNull(ser);
         assertEquals(148075,ser.getFirst().getValue(),EPS);
         assertEquals(9648,ser.getLast().getValue(),EPS);
-        
     }
-    
     
     @Test
     public void getFirstPlateNameFindsAPlate() throws Exception {
@@ -495,16 +484,23 @@ public class TopCountReaderTest {
     @Test
     public void findPlateFilesInPaths() throws Exception {
 
+	Path dir2001_01 = Files.createDirectories(testFolder.resolve("2001.01"));
+	Path file2001_01_03 = Files.createFile(testFolder.resolve("2001.01.03"));
+	Path file20_2001_04 = Files.createFile(testFolder.resolve("20.2001.04"));
+	Path file2001_11 = Files.createFile(testFolder.resolve("2001.11"));
+	Path file2001_110 = Files.createFile(testFolder.resolve("2001.110"));
+	Path file2001_02 = Files.createFile(testFolder.resolve("2001.02"));
+	Path file2002_05 = Files.createFile(testFolder.resolve("2002.05"));
         
-        List<Path> paths = Arrays.asList(
-                testFolder.newFolder("2001.01").toPath(),
-                testFolder.newFile("2001.01.03").toPath(),
-                testFolder.newFile("20.2001.04").toPath(),
-                testFolder.newFile("2001.11").toPath(),
-                testFolder.newFile("2001.110").toPath(),
-                testFolder.newFile("2001.02").toPath(),
-                testFolder.newFile("2002.05").toPath()                
-        );
+	List<Path> paths = Arrays.asList(
+					 dir2001_01,
+					 file2001_01_03,
+					 file20_2001_04,
+					 file2001_11,
+					 file2001_110,
+					 file2001_02,
+					 file2002_05
+					 );
         
         String plate = "2001";
         
@@ -512,9 +508,7 @@ public class TopCountReaderTest {
         
         assertEquals(Arrays.asList("2001.02","2001.11","2001.110")
                 ,files.stream().map(p->p.getFileName().toString()).collect(Collectors.toList()));
-
     }
-    
     
     @Test
     public void isZipFileRecognizesZips() throws Exception {
@@ -531,8 +525,6 @@ public class TopCountReaderTest {
         fname = "nozip.zip";
         file = getTestPath(fname);
         assertFalse(instance.isZipFile(file));
-        
-        
     }
     
     @Test
@@ -554,7 +546,6 @@ public class TopCountReaderTest {
         
         res = instance.getFirstPlate(zip);
         assertEquals("1517",res);
-        
     }
     
     @Test
@@ -585,7 +576,5 @@ public class TopCountReaderTest {
         List<String> names = res.stream().map(z -> z.getName()).collect(Collectors.toList());
         
         assertEquals(Arrays.asList("p1.001/p1.2","p1.003","p1.001/p1.011"),names);
-        
     }
-    
 }

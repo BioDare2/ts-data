@@ -14,6 +14,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,10 +25,9 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -35,9 +35,8 @@ import org.junit.rules.TemporaryFolder;
  */
 public class TimeSeriesTest {
     
-    
-    @Rule
-    public TemporaryFolder TEST_DIR = new TemporaryFolder();
+    @TempDir
+    public Path TEST_DIR;
     
     static final double EPS = 1E-6;
     Random random = new Random();
@@ -78,7 +77,6 @@ public class TimeSeriesTest {
         
         data.add(new Timepoint(0,3));
         assertFalse(data.isSorted());
-        
     }
     
     /**
@@ -115,17 +113,13 @@ public class TimeSeriesTest {
             expResult.clear();
             fail("Unmodified excetion expected");
         } catch (Exception e) {
-            //System.out.println(e.getClass().getName());
         }
         
         try {
             expResult.remove(0);
             fail("Unmodified excetion expected");
         } catch (Exception e) {
-            //System.out.println(e.getClass().getName());
         }
-        
-        
     }
 
     /**
@@ -158,8 +152,6 @@ public class TimeSeriesTest {
         instance.add(1.000001,2);
         result = instance.getFirst();
         assertEquals(expResult, result);
-        
-        
     }
 
     /**
@@ -176,7 +168,6 @@ public class TimeSeriesTest {
             result = instance.getLast();
             fail("Illegal Argument exception expected instaed of: "+result);
         } catch (IllegalArgumentException e) {
-            
         }
         
         instance.add(10,3);
@@ -209,7 +200,6 @@ public class TimeSeriesTest {
             result = instance.getMeanValue();
             fail("Expected exception not: "+result);
         } catch (IllegalArgumentException e) {
-            
         }
         
         instance.add(1,2);
@@ -250,7 +240,6 @@ public class TimeSeriesTest {
             result = instance.getMaxTimePoint();
             fail("Expected exception not:"+result);
         } catch(IllegalArgumentException e) {
-            
         }
         
         expResult = new Timepoint(3,10);
@@ -393,7 +382,6 @@ public class TimeSeriesTest {
         result = instance.getMinMaxTimePoint();
         expResult = new Pair(new Timepoint(1,0),new Timepoint(11,11));
         assertEquals(expResult, result);
-        
    }
     
     
@@ -424,7 +412,6 @@ public class TimeSeriesTest {
         expResult = (15-2)/2.0;
         result = instance.getAmplitude();    
         assertEquals(expResult, result, EPS);
-        
     }
     
 
@@ -496,8 +483,6 @@ public class TimeSeriesTest {
         assertEquals(expResult.getLast(), result.getLast());
         assertEquals(expResult.getMaxTimePoint(), result.getMaxTimePoint());
         assertEquals(expResult.getMinTimePoint(), result.getMinTimePoint());
-        
-        
     }
 
     /**
@@ -568,7 +553,6 @@ public class TimeSeriesTest {
         
         assertEquals(t, instance.getFirst());
         assertEquals(t, instance.getLast());
-        
     }
 
 
@@ -618,7 +602,6 @@ public class TimeSeriesTest {
         assertEquals(templ.getMinValue(),instance.getMinValue(),EPS);
         assertEquals(templ.getMaxValue(),instance.getMaxValue(),EPS);
         assertEquals(2,instance.getLast().getTime(),EPS);
-        
     }
 
 
@@ -726,7 +709,6 @@ public class TimeSeriesTest {
         expResult = 14;
         result = instance.getDuration();
         assertEquals(expResult, result, EPS);
-        
     }
 
     /**
@@ -734,14 +716,12 @@ public class TimeSeriesTest {
      */
     @Test
     public void testGetAverageStep() {
-        System.out.println("getAverageStep");
         TimeSeries instance = new TimeSeries();
         double expResult = Double.NaN;
         double result;
         
-            result = instance.getAverageStep();
-            assertEquals(expResult, result, EPS);
-        
+	result = instance.getAverageStep();
+	assertEquals(expResult, result, EPS);
         
         instance.add(1,10);
         result = instance.getAverageStep();
@@ -752,7 +732,6 @@ public class TimeSeriesTest {
         expResult = 1.5;
         result = instance.getAverageStep();
         assertEquals(expResult, result, EPS);
-        
     }
 
     /**
@@ -820,7 +799,6 @@ public class TimeSeriesTest {
         assertFalse(result);
         result = instance.almostEquals(other, 0.1);
         assertTrue(result);
-        
     }
     
     /**
@@ -850,7 +828,6 @@ public class TimeSeriesTest {
 
         other.add(4,0);
         assertTrue(instance.hasSameTimes(other));
-        
     }
     
     /**
@@ -889,8 +866,6 @@ public class TimeSeriesTest {
         assertTrue(instance.hasSameTimes(other, precission));
     }
     
-    
-
     /**
      * Test of getTimesAndValues method, of class TimeSeries.
      */
@@ -917,9 +892,6 @@ public class TimeSeriesTest {
         result = instance.getTimesAndValues();
         assertArrayEquals(expResult.getLeft(), result.getLeft(),EPS);
         assertArrayEquals(expResult.getRight(), result.getRight(),EPS);
-        
-        
-    
     }
 
     /**
@@ -949,7 +921,6 @@ public class TimeSeriesTest {
         result = instance.getTimesAndValuesLists();
         assertEquals(eL, result.getLeft());
         assertEquals(eR, result.getRight());
-        
     }
 
     /**
@@ -1095,9 +1066,6 @@ public class TimeSeriesTest {
         res = org.addTrend(slope, inter);
         assertEquals(2,res.getMaxValue(),EPS);
         assertEquals(-7,res.getMinValue(),EPS);
-
-        //assertTrue(false);
-        
     }
     
     /**
@@ -1201,8 +1169,6 @@ public class TimeSeriesTest {
         instance.add(1,2.1);
         result = instance.equals(obj);
         assertEquals(expResult, result);
-        
-        
     }
 
     /**
@@ -1278,7 +1244,7 @@ public class TimeSeriesTest {
     public void testSerialization() throws Exception {
         System.out.println("serialization");
         
-        File file = TEST_DIR.newFile();//new File(TEST_DIR,"timeseries."+hashCode()+".ser");
+        File file = TEST_DIR.resolve("test.txt").toFile();
         
         try {
             TimeSeries org = new TimeSeries();
@@ -1315,7 +1281,6 @@ public class TimeSeriesTest {
         }
     }
    
-
     /**
      * Test of writeExternal method, of class TimeSeries.
      */
@@ -1323,7 +1288,7 @@ public class TimeSeriesTest {
     public void testSerialization2() throws Exception {
         System.out.println("serialization2");
         
-        File file = TEST_DIR.newFile();//new File(TEST_DIR,"timeseries."+hashCode()+".ser");
+        File file = TEST_DIR.resolve("test_file.txt").toFile();
         
         try {
             TimeSeries org = new TimeSeries();
@@ -1337,7 +1302,6 @@ public class TimeSeriesTest {
             org.add(new Timepoint(0,4,null,null) );
             org.add(1000,2);
             testSerializationID(org,file);
-            
             
         } catch (AssertionError e) {
             file.delete();
@@ -1356,7 +1320,6 @@ public class TimeSeriesTest {
         }
         
         testExtendedEquality(org,read);
-        
     }
     
     /**
@@ -1366,7 +1329,7 @@ public class TimeSeriesTest {
     public void testXmlSerialization() throws Exception {
         System.out.println("xml serialization");
         
-        File file = TEST_DIR.newFile();//new File(TEST_DIR,"timeseries."+hashCode()+".xml");
+        File file = TEST_DIR.resolve("test_file.txt").toFile();
         
         try {
             TimeSeries org = new TimeSeries();
@@ -1383,7 +1346,6 @@ public class TimeSeriesTest {
             org.add(1,2);
             org.add(2,3);
             testXmlSerializationID(org,file);
-            
             
             org = new TimeSeries();
             int N = 100;
@@ -1411,53 +1373,24 @@ public class TimeSeriesTest {
 
         Unmarshaller umar = cont.createUnmarshaller();
         
-        
         TimeSeries read = (TimeSeries) umar.unmarshal(file);
         
         testExtendedEquality(org,read);
-        
     }
     
     protected void testExtendedEquality(TimeSeries org,TimeSeries cpy) {
-            assertEquals(org,cpy);
+	assertEquals(org,cpy);
             
-            
-            if (!org.isEmpty()) {
-                assertEquals(org.getFirst(),cpy.getFirst());
-                assertEquals(org.getLast(),cpy.getLast());
-                assertEquals(org.getAverageStep(),cpy.getAverageStep(),EPS);
-                assertEquals(org.getDuration(),cpy.getDuration(),EPS);
-                assertEquals(org.getMaxTimePoint(),cpy.getMaxTimePoint());
-                assertEquals(org.getMinTimePoint(),cpy.getMinTimePoint());
-                assertEquals(org.getMeanValue(),cpy.getMeanValue(),EPS);
-                assertEquals(org.getAmplitude(),cpy.getAmplitude(),EPS);
-                assertEquals(org.getTimepoints(),cpy.getTimepoints());
-            }
-                
-       
+	if (!org.isEmpty()) {
+	    assertEquals(org.getFirst(),cpy.getFirst());
+	    assertEquals(org.getLast(),cpy.getLast());
+	    assertEquals(org.getAverageStep(),cpy.getAverageStep(),EPS);
+	    assertEquals(org.getDuration(),cpy.getDuration(),EPS);
+	    assertEquals(org.getMaxTimePoint(),cpy.getMaxTimePoint());
+	    assertEquals(org.getMinTimePoint(),cpy.getMinTimePoint());
+	    assertEquals(org.getMeanValue(),cpy.getMeanValue(),EPS);
+	    assertEquals(org.getAmplitude(),cpy.getAmplitude(),EPS);
+	    assertEquals(org.getTimepoints(),cpy.getTimepoints());
+	}
     }
-    
-    /*@Test
-    public void canSerializeToJSONAndBack() throws Exception {
-
-        TimeSeries instance = new TimeSeries();
-        
-        instance.add(new Timepoint(0,1));
-        instance.add(new Timepoint(2,1));
-        instance.add(new Timepoint(10,2,1.0,null));
-        instance.add(new Timepoint(5,3,0.5,0.1));
-        
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        String txt = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
-        
-        System.out.println(txt);
-        assertNotNull(txt);
-        
-        TimeSeries cpy = mapper.readValue(txt, TimeSeries.class);
-        assertTrue(instance.equals(cpy));
-        
-    }*/
-    
-    
 }

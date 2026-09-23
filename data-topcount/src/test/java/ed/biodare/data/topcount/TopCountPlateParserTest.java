@@ -23,10 +23,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -34,13 +33,12 @@ import org.junit.rules.TemporaryFolder;
  */
 public class TopCountPlateParserTest {
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
     
     double EPS = 1E-6;
     public TopCountPlateParserTest() {
     }
-
 
     @Test
     public void isSuitableFormatDistinguishes() throws Exception {
@@ -139,7 +137,6 @@ public class TopCountPlateParserTest {
         result = instance.readValueRow(tokenizer);
         assertNull(result);
         
-        
         in = "  E 	07:46:12 PM 	07:47:02 PM 	07:46:12 PM";
         buf = new BufferedReader(new StringReader(in));
         tokenizer = new SimpleTokenizer(buf);        
@@ -164,9 +161,7 @@ public class TopCountPlateParserTest {
         assertEquals(expRowId,result.getRowId());
         assertEquals(expRowNr,result.getRowNr());
         assertEquals(expColumns,result.getColumns());
-        
     }    
-    
     
     @Test
     public void testReadTimeRow() throws Exception {
@@ -214,7 +209,6 @@ public class TopCountPlateParserTest {
         result = instance.readTimeRow(tokenizer);
         assertNull(result);
         
-        
         in = "F 	     15467 	      9805 	     18307 	      5938 ";
         buf = new BufferedReader(new StringReader(in));
         tokenizer = new SimpleTokenizer(buf);        
@@ -226,7 +220,6 @@ public class TopCountPlateParserTest {
             assertEquals(expRowNr,result.getRowNr());
             assertEquals(expColumns,result.getColumns());
         } catch (FormatException e) {}
-        
     }    
     
     @Test
@@ -298,9 +291,7 @@ public class TopCountPlateParserTest {
         assertNull(block);
         
         } catch (FormatException e) {}
-        
     }    
-    
     
     @Test
     public void testReadTimeBlock() throws Exception {
@@ -374,9 +365,7 @@ public class TopCountPlateParserTest {
         assertNull(block);
         
         } catch (FormatException e) {}
-        
     }        
-    
     
     @Test
     public void testDataBlock() throws Exception {
@@ -476,14 +465,5 @@ public class TopCountPlateParserTest {
                 assertTrue(entry.getValue() > 0);                
             }
         }
-
-        //assertTrue(false);
     }
-    
-    
-    
-    
-   
-    
-    
 }

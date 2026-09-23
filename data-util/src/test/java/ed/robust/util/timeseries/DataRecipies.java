@@ -8,17 +8,16 @@ package ed.robust.util.timeseries;
 import ed.robust.dom.data.TimeSeries;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  *
  * @author tzielins
  */
 public class DataRecipies {
-   
     
     @Test
     public void generatePeakData() throws Exception {
@@ -59,8 +58,6 @@ public class DataRecipies {
         TimeSeriesFileHandler.saveToText(waves, file.toFile(), ",", ROUNDING_TYPE.CENTY);         
         assertTrue(true);
     }
-    
-    
     
     public Map<String,TimeSeries> addNoise(Map<String,TimeSeries> patterns, double[] noises) {
         

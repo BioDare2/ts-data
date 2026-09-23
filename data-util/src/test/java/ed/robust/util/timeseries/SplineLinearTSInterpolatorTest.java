@@ -7,12 +7,8 @@ package ed.robust.util.timeseries;
 import java.util.List;
 import ed.robust.dom.data.TimeSeries;
 import ed.robust.dom.data.Timepoint;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -23,29 +19,11 @@ public class SplineLinearTSInterpolatorTest {
     public SplineLinearTSInterpolatorTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of getValue method, of class SplineLinearTSInterpolator.
      */
     @Test
     public void testGetValue1() {
-        System.out.println("getValue1");
-        
         
         TimeSeries data = new TimeSeries();
         
@@ -85,7 +63,6 @@ public class SplineLinearTSInterpolatorTest {
         expResult = 5;
         result = instance.getValue(time);
         assertEquals(expResult, result, 0.0001);
-        
     }
 
     /**
@@ -93,7 +70,6 @@ public class SplineLinearTSInterpolatorTest {
      */
     @Test
     public void testGetFirstAndLast() {
-        System.out.println("getFirst");
         
         TimeSeries data = new TimeSeries();
         
@@ -130,7 +106,6 @@ public class SplineLinearTSInterpolatorTest {
         expResult = new Timepoint(10,5);
         result = instance.getLast();
         assertEquals(expResult, result);        
-        
     }
 
     /**
@@ -153,14 +128,11 @@ public class SplineLinearTSInterpolatorTest {
      
     @Test
     public void testGetValue2() {
-        System.out.println("getValue2");
         
         TimeSeries data = TSGenerator.makeStep(50,2, 25, 5,2);
         
         TimeSeriesInterpolator instance = new SplineLinearTSInterpolator(data,ROUNDING_TYPE.MIL);
 
-       //System.out.println("AVG: "+instance.getAverageStep());
-        
         Timepoint tp = data.getFirst();
         
         double time = tp.getTime();
@@ -205,10 +177,8 @@ public class SplineLinearTSInterpolatorTest {
         assertEquals(expResult, result, 0.1);
     }
     
-    
     @Test
     public void testMakeInterpolation() {
-        System.out.println("make Interpolation");
         
         TimeSeries data = new TimeSeries();
         data.add(1.012,1);
@@ -230,13 +200,5 @@ public class SplineLinearTSInterpolatorTest {
         for(int i = 0;i<result.size();i++) {
             assertEquals(expResult.get(i), result.get(i));
         }
-         
-        // */
-        
-        /*
-        for (Timepoint tp : result) {
-            System.out.println(tp.getTime()+"\t"+tp.getValue());
-        }*/
     }
-    
 }

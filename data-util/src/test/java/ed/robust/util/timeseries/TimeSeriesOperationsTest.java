@@ -12,10 +12,8 @@ import java.util.List;
 import java.util.Random;
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -28,15 +26,6 @@ public class TimeSeriesOperationsTest {
     
     public TimeSeriesOperationsTest() {
     }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
 
     @Test
     public void testFindHighestLowestPeaks() {
@@ -64,7 +53,6 @@ public class TimeSeriesOperationsTest {
         Timepoint expHighest = new Timepoint(13,3);
         Timepoint expLowest = new Timepoint(15,-1);
         
-        
         assertEquals(expHighest, highest);
         assertEquals(expLowest, lowest);
         
@@ -90,7 +78,6 @@ public class TimeSeriesOperationsTest {
         
         expHighest = null;
         expLowest = null;
-        
         
         assertEquals(expHighest, highest);
         assertEquals(expLowest, lowest);        
@@ -129,7 +116,6 @@ public class TimeSeriesOperationsTest {
     
     @Test
     public void testAddFuntion() {
-        System.out.println("Testing adding function");
         
         TimeSeries data = new TimeSeries();
         TimeSeries exp = new TimeSeries();
@@ -153,14 +139,10 @@ public class TimeSeriesOperationsTest {
         exp.add(1,5);
         res = TimeSeriesOperations.addFunction(data, fun);
         assertEquals(exp,res); 
-        
-        
     }
-    
     
     @Test
     public void testSubFuntion() {
-        System.out.println("Testing sub function");
         
         TimeSeries data = new TimeSeries();
         TimeSeries exp = new TimeSeries();
@@ -184,8 +166,6 @@ public class TimeSeriesOperationsTest {
         exp.add(1,-1);
         res = TimeSeriesOperations.substractFunction(data, fun);
         assertEquals(exp,res); 
-        
-        
     }
     
     @Test
@@ -273,7 +253,6 @@ public class TimeSeriesOperationsTest {
             
         }
         
-        
         source = new TimeSeries();
         source.add(0,2);        
         dest = new TimeSeries();
@@ -304,7 +283,7 @@ public class TimeSeriesOperationsTest {
         exp.add(1,3);
         
         res = TimeSeriesOperations.castTime(source, dest);
-        assertTrue("Got: "+res+" instad of: "+exp,exp.almostEquals(res,1E-2));        
+        assertTrue(exp.almostEquals(res,1E-2), "Got: "+res+" instad of: "+exp);
 
         source = new TimeSeries();
         source.add(1,2);        
@@ -319,7 +298,7 @@ public class TimeSeriesOperationsTest {
         exp.add(4,5);
         
         res = TimeSeriesOperations.castTime(source, dest);
-        assertTrue("Got: "+res+" instad of: "+exp,exp.almostEquals(res,1E-1));        
+        assertTrue(exp.almostEquals(res,1E-1), "Got: "+res+" instad of: "+exp);
         
         source = new TimeSeries();
         dest = new TimeSeries();
@@ -331,6 +310,5 @@ public class TimeSeriesOperationsTest {
         
         res = TimeSeriesOperations.castTime(source, dest);
         assertArrayEquals(dest.getTimes(), res.getTimes(),EPS);
-        
     }
 }

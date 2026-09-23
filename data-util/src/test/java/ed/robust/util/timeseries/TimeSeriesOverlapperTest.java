@@ -9,10 +9,8 @@ import ed.robust.dom.data.Timepoint;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.Test;
-import org.junit.BeforeClass;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -23,22 +21,12 @@ public class TimeSeriesOverlapperTest {
     public TimeSeriesOverlapperTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     protected TimeSeriesOverlapper makeInstance() {
         return new TimeSeriesOverlapper();
     }
     
-    
     @Test
     public void testOverlapData() throws Exception {
-        System.out.println("overlapData");
         
         double period = 24.6;
         double phase = 5;
@@ -53,12 +41,10 @@ public class TimeSeriesOverlapperTest {
         List<TimeSeries> list = Arrays.asList(data,wrapped);
         
         TimeSeriesFileHandler.saveToText(list, Configuration.tempFile("p_ovgwave.csv"), ",");
-        
     }
     
     @Test
     public void testOverlapAndPropagateData() throws Exception {
-        System.out.println("overlapAndPropagateData");
         
         double period = 24.6;
         double phase = 5;
@@ -86,7 +72,6 @@ public class TimeSeriesOverlapperTest {
             Timepoint n = points.get(j);
             assertEquals(c.getValue(),n.getValue(),0.01);
         }
-        
     }
     
     public TimeSeries makeData(double period, double phase, double days) {
@@ -96,10 +81,7 @@ public class TimeSeriesOverlapperTest {
         double amplitude = 3;
         
         TimeSeries data = TSGenerator.makeDblPulse(N, freq, period, phase, amplitude);
-        //data = TSGenerator.dampen(data, 0.8);
-        
         
         return data;
     }
-    
 }

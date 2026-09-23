@@ -8,10 +8,9 @@ package ed.biodare.data.excel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
 
 /**
  *
@@ -20,10 +19,6 @@ import org.junit.Ignore;
 public class ExcelDimensionCheckerTest {
     
     public ExcelDimensionCheckerTest() {
-    }
-    
-    @Before
-    public void setUp() {
     }
 
     @Test
@@ -64,11 +59,8 @@ public class ExcelDimensionCheckerTest {
     }    
     
     @Test
-    @Ignore("Test file not commited")
+    @Disabled("Test file not commited")
     public void testCanCheckLargeFiles() throws Exception {
-        
-        
-        
         
         Path file = Paths.get("E:\\Temp\\long_10000x1200.xlsx"); 
         int[] rowsCols = ExcelDimensionChecker.rowsColsDimensions(file);        

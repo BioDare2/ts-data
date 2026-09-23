@@ -9,12 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -22,21 +21,21 @@ import org.junit.rules.TemporaryFolder;
  */
 public class Excel2TextConverterTest {
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
     
     public Excel2TextConverterTest() {
     }
     
     Excel2TextConverter instance;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         instance = new Excel2TextConverter();
     }
 
     @Test
-    @Ignore("Not commited the large tets file as >156Mg and gitub refuses")
+    @Disabled("Not commited the large tets file as >156Mg and gitub refuses")
     public void testCanSaveLargeToCSV() throws Exception {
         
         Path inFile = Paths.get(this.getClass().getResource("long_10000x1200.xlsx").toURI());
@@ -52,18 +51,16 @@ public class Excel2TextConverterTest {
     @Test
     public void testConvertsXLSXFile() throws Exception {
         
-            
             Path inFile = Paths.get(this.getClass().getResource("2CSVTest.xlsx").toURI());
-            Path outFile = testFolder.newFile().toPath();   
+	    Path outFile = testFolder.resolve("output_file.csv");
+	    
             instance.convert(inFile, outFile);
             
             assertTrue(Files.isRegularFile(outFile));
             assertTrue(Files.size(outFile) > 10);
             
             List<String> lines = Files.readAllLines(outFile);
-            
-            //lines.forEach( System.out::println);
-            
+                        
             List<String> exp = List.of(
                     "",
                     "A,B,C",                    
@@ -80,17 +77,15 @@ public class Excel2TextConverterTest {
     @Test
     public void testConvertsXLSFile() throws Exception {
         
-            
             Path inFile = Paths.get(this.getClass().getResource("2CSVTest.xls").toURI());
-            Path outFile = testFolder.newFile().toPath();   
+            Path outFile = testFolder.resolve("output_file.csv");
+	    
             instance.convert(inFile, outFile);
             
             assertTrue(Files.isRegularFile(outFile));
             assertTrue(Files.size(outFile) > 10);
             
             List<String> lines = Files.readAllLines(outFile);
-            
-            //lines.forEach( System.out::println);
             
             List<String> exp = List.of(
                     "",
@@ -102,22 +97,16 @@ public class Excel2TextConverterTest {
             );
             
             assertEquals(exp, lines);
-            
     }    
     
     @Test
-    //@Ignore("Not commited test file")
     public void testConvertsMediumXLSFile() throws Exception {
         
-            
             Path inFile = Paths.get(this.getClass().getResource("long_255x5000.xls").toURI());
-            Path outFile = testFolder.newFile().toPath();   
+	    Path outFile = testFolder.resolve("output_file.csv");
             instance.convert(inFile, outFile);
             
             assertTrue(Files.isRegularFile(outFile));
             assertTrue(Files.size(outFile) > 5000);
-            
-            
     }      
-    
 }

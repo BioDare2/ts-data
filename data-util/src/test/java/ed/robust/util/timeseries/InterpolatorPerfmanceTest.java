@@ -9,15 +9,13 @@ import ed.robust.dom.data.TimeSeries;
 import ed.robust.dom.data.Timepoint;
 import java.util.ArrayList;
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author tzielins
  */
 public class InterpolatorPerfmanceTest {
-    
-    
     
     @Test
     public void testPerformance()
@@ -56,7 +54,6 @@ public class InterpolatorPerfmanceTest {
             
             System.out.println(interpolator.getClass().getSimpleName()+" random access: "+(System.currentTimeMillis()-sTime));
         }
-        
     }
 
     protected List<TimeSeries> makeTestData() {
@@ -91,8 +88,6 @@ public class InterpolatorPerfmanceTest {
             TimeSeriesInterpolator inter = new SplineLinearTSInterpolator(data,ROUNDING_TYPE.DECY);            
             inters.add(inter);
         }
-        
         return inters;
-        
     }
 }

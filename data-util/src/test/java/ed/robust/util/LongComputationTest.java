@@ -7,16 +7,12 @@ package ed.robust.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 /**
  *
  * @author tzielins
  */
 public class LongComputationTest {
-    
-
-    
          
     //checks how long the computations last
     //@Test
@@ -49,18 +45,4 @@ public class LongComputationTest {
         assertEquals(0,wrong);
         assertTrue(wrong==0);
     }
-    
-    
-    
-    
-    
-    
-  
-    
-    
-    
-    
-    
-    
-     
 }

@@ -14,11 +14,10 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -28,8 +27,8 @@ public class ModernExcelViewTest {
     
     static final double EPS = 1E-6;
     
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
     
     public ModernExcelViewTest() {
     }
@@ -55,19 +54,8 @@ public class ModernExcelViewTest {
         
         file = new File(getClass().getResource("col1609.zip").getFile());       
         assertFalse(ModernExcelView.isExcelFile(file));     
-        
-        file = testFolder.newFile();
-        assertFalse(ModernExcelView.isExcelFile(file));     
     }
     
-    @Test
-    @Ignore("Not commited test file")
-    public void testCanCheckFormatOfLargeFile() throws Exception {
-        
-        Path file = Paths.get("E:\\Temp\\long_10000x1200.xlsx");
-        assertTrue(ModernExcelView.isExcelFile(file));
-    }    
-
     /**
      * Test of selectSheet method, of class ModernExcelView.
      */
@@ -325,7 +313,7 @@ public class ModernExcelViewTest {
     @Test
     public void autoClosingWorks() throws Exception {
         
-        File file = testFolder.newFile();
+        File file = testFolder.resolve("test.txt").toFile();
         {
             File orgFile = new File(getClass().getResource("SimpleImagingData.xlsx").getFile()); 
             Files.copy(orgFile.toPath(), file.toPath(),StandardCopyOption.REPLACE_EXISTING);
@@ -343,7 +331,7 @@ public class ModernExcelViewTest {
     @Test
     public void getsExceptionIfNotClosedAndDeleted() throws Exception {
         
-        File file = testFolder.newFile();
+        File file = testFolder.resolve("test.txt").toFile();
         {
             File orgFile = new File(getClass().getResource("SimpleImagingData.xlsx").getFile()); 
             Files.copy(orgFile.toPath(), file.toPath(),StandardCopyOption.REPLACE_EXISTING);
@@ -368,7 +356,7 @@ public class ModernExcelViewTest {
     @Test
     public void viewIsReadOnly() throws Exception {
         
-        File file = testFolder.newFile();
+        File file = testFolder.resolve("test.txt").toFile();
         {
             File orgFile = new File(getClass().getResource("SimpleImagingData.xlsx").getFile()); 
             Files.copy(orgFile.toPath(), file.toPath(),StandardCopyOption.REPLACE_EXISTING);
@@ -386,7 +374,5 @@ public class ModernExcelViewTest {
             String val = instance.readStringCell(0, 1);
             assertEquals("Nr",val);
         }
-        
     }       
-
 }

@@ -7,10 +7,11 @@ package ed.biodare.data.excel;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
 
 /**
  *
@@ -23,7 +24,7 @@ public class XLSXDimensionsCheckerTest {
     
     XLSXDimensionsChecker instance;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         
         instance = new XLSXDimensionsChecker();
@@ -57,10 +58,8 @@ public class XLSXDimensionsCheckerTest {
             
     }  
     
-    
-    
     @Test
-    @Ignore("Not commited test file")
+    @Disabled("Not commited test file")
     public void testCanCheckLargeFiles() throws Exception {
         
         Path inFile = Paths.get(this.getClass().getResource("long_10000x1200.xlsx").toURI());;
@@ -68,11 +67,7 @@ public class XLSXDimensionsCheckerTest {
         int[] rowsCols = instance.rowsColsDimensions(inFile);
 
         int[] exp = {1202, 10001};
-        
 
         assertArrayEquals(exp, rowsCols);
     }    
-    
-   
-    
 }

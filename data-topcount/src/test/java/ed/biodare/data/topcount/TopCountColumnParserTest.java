@@ -17,9 +17,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -34,7 +34,7 @@ public class TopCountColumnParserTest {
     
     TopCountColumnParser instance;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         instance = new TopCountColumnParser();
     }
@@ -55,7 +55,6 @@ public class TopCountColumnParserTest {
         
         file = Paths.get(this.getClass().getResource("mixed.zip").toURI());
         assertFalse(instance.isSuitableFormat(file));        
-        
     }
     
     @Test
@@ -161,8 +160,6 @@ public class TopCountColumnParserTest {
         DataBlock block = instance.readDataBlock(tokenizer);
         
         assertNull(block);
-        
-        
     }
     
     @Test
@@ -282,7 +279,6 @@ public class TopCountColumnParserTest {
                 assertTrue(entry.getTime() > 10);
             }
         }
-        
     }
     
     @Test
@@ -304,6 +300,4 @@ public class TopCountColumnParserTest {
             assertEquals(30, block.getEntry(8, 12).getValue(),EPS);
         }
     }
-    
-    
 }

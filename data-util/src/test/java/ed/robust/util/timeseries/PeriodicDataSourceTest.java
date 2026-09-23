@@ -10,10 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -24,21 +22,12 @@ public class PeriodicDataSourceTest {
     public PeriodicDataSourceTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-    
     protected PeriodicDataSource makeInstance(DataSource source,double period, double last)  {
         return new PeriodicDataSource(source, period, last);
     }
 
     @Test
     public void testGetFirst() {
-        System.out.println("getFirst");
         
         double phase = 4;
         double period = 25;
@@ -61,7 +50,6 @@ public class PeriodicDataSourceTest {
 
     @Test
     public void testGetLast() {
-        System.out.println("getLastTime");
         
         double phase = 4;
         double period = 25;
@@ -82,11 +70,8 @@ public class PeriodicDataSourceTest {
         assertEquals(expResult, result,0.0001);
     }
     
-
     @Test
     public void testGetValue() {
-        System.out.println("getValue");
-        
         
         double phase = 4;
         double period = 24.6;
@@ -101,7 +86,6 @@ public class PeriodicDataSourceTest {
         
         PeriodicDataSource instance = makeInstance(source, period, 100);
         
-        
         double EPS = 0.00001;
         for (double time = 0;time < period; time+=1.23) {
             double expResult = source.getValue(time);
@@ -114,10 +98,7 @@ public class PeriodicDataSourceTest {
             assertEquals(expResult, result,EPS);
             
         }
-        
     }
-
-
 
     @Test
     public void testGetTimepoints() throws IOException {
@@ -149,7 +130,5 @@ public class PeriodicDataSourceTest {
         
         double EPS = 0.1;
         assertTrue(expResult.almostEquals(result, EPS));
-        
     }
-
 }

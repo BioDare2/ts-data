@@ -10,10 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -24,18 +22,8 @@ public class SplineTSInterpolatorTest {
     public SplineTSInterpolatorTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-
     @Test
     public void testMakeInterpolation() throws IOException {
-        System.out.println("makeInterpolation");
         
         TimeSeries data = TSGenerator.makeCos(50, 2, 25, 2);
         
@@ -45,7 +33,6 @@ public class SplineTSInterpolatorTest {
         
         TimeSeries expResult = new TimeSeries();
         expResult.addAll(data.getTimepoints());
-        
         
         List result = instance.makeInterpolation(2, ROUNDING_TYPE.MIL);
         TimeSeries rTS = new TimeSeries();
@@ -62,19 +49,15 @@ public class SplineTSInterpolatorTest {
         list.add(rTS);
         
         TimeSeriesFileHandler.saveToText(list, Configuration.tempFile("inter.csv"), ",");
-        
     }
 
     @Test
     public void testGetValue() {
-        System.out.println("getValue");
         
         TimeSeries data = TSGenerator.makeStep(50,0.05, 25, 5,2);
         
         SplineTSInterpolator instance = new SplineTSInterpolator(data);
 
-       //System.out.println("AVG: "+instance.getAverageStep());
-        
         Timepoint tp = data.getFirst();
         
         double time = tp.getTime();
@@ -92,7 +75,6 @@ public class SplineTSInterpolatorTest {
         time = (data.getTimepoints().get(i).getTime()+data.getTimepoints().get(i+1).getTime())/2;
         result = instance.getValue(time);
         
-        
         assertTrue(result > data.getTimepoints().get(i).getValue());
         assertTrue(result < data.getTimepoints().get(i+1).getValue());
         
@@ -108,7 +90,6 @@ public class SplineTSInterpolatorTest {
 
     @Test
     public void testGetFirst() {
-        System.out.println("getFirst");
         TimeSeries data = TSGenerator.makeStep(50,2, 25, 5,2);
         
         SplineTSInterpolator instance = new SplineTSInterpolator(data);
@@ -119,14 +100,11 @@ public class SplineTSInterpolatorTest {
         double expResult = tp.getValue();
         double result = instance.getValue(time);
         assertEquals(expResult, result, 0.0001);
-        
-        
     }
 
     @Test
     public void testGetLast() {
-        System.out.println("getLast");
-         TimeSeries data = TSGenerator.makeStep(50,2, 25, 5,2);
+	TimeSeries data = TSGenerator.makeStep(50,2, 25, 5,2);
         
         SplineTSInterpolator instance = new SplineTSInterpolator(data);
 
@@ -137,14 +115,10 @@ public class SplineTSInterpolatorTest {
         double result = instance.getValue(time);
 
         assertEquals(expResult, result, 0.0001);
-        
-         
     }
-    
     
     @Test
     public void testRepeatedData() {
-        System.out.println("repeated data");
         
         TimeSeries data = new TimeSeries();
         data.add(0,0);
@@ -160,8 +134,5 @@ public class SplineTSInterpolatorTest {
         for (Timepoint tp : result) {
             System.out.println(tp.getTime()+"\t"+tp.getValue());
         }
-        
-        
     }
-    
 }

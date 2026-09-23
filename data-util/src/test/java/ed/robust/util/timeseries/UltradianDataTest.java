@@ -8,7 +8,6 @@ import ed.robust.dom.data.TimeSeries;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
 import ed.robust.util.timeseries.LocalRegressionDetrending.TrendPack;
 
 /**
