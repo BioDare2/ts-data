@@ -17,6 +17,29 @@
   </properties>
   <name>BD2Data Parent</name>
   <description>Parent and aggregator for building BioDare data</description>
+
+  <repositories>
+    <repository>
+      <id>nexus</id>
+      <name>Nexus on tomato</name>
+      <url>http://tomato.bio.ed.ac.uk:8883/repository/biodare/</url>
+      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <name>Releases to Nexus on tomato</name>
+      <url>http://tomato.bio.ed.ac.uk:8883/repository/biodare-rel/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus-university</id>
+      <name>Snapshots to Nexus on tomato</name>
+      <url>http://tomato.bio.ed.ac.uk:8883/repository/biodare-dev/</url>
+    </snapshotRepository>
+  </distributionManagement>
   
   <scm>
     <connection>scm:git:git@github.com:tzielins/BioDare2-data.git</connection>
